@@ -1,4 +1,4 @@
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TSFEL/blob/master/TSFDlib.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TSFDlib/TSFEL/blob/master/TSFDlib.ipynb)
 
 # Feature Extraction Library and Classification
 ## Purpose
@@ -25,12 +25,3 @@ Example:
     DATASET_DIR = r'/net/sharedfolders/research_and_development/Projects/Active/DEMSports/Acquisitions/Dataset/'
     ACTIVITIES = ['Walk', 'Run', 'Stand', 'Sit']
     feature_extraction(DATASET_DIR, ACTIVITIES, 'Pandlet', 5, barometer=True)
-
-
-## Classification
-
-The classification is performed with different classifiers: Nearest Neighbors, Decision Tree, Random Forest, SVM, AdaBoost, Naive Bayes and QDA, in order to find the best one. All the results obtained are presented. The confusion matrix of the best classifier is saved in **/data/results**. If the best classifier is Decision Tree, its rules are also saved in the same folder.
-
-To run the classification:
-
-    classification.py
