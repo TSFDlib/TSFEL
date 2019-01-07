@@ -1,2 +1,2 @@
-from TSFEL.tsfel.feature_extraction.get_features import extract_features
-from TSFEL.tsfel.feature_extraction.features import *
+from TSFEL.get_features import extract_features
+from TSFEL.features import *
