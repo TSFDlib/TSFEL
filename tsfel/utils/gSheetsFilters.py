@@ -69,7 +69,7 @@ def extract_sheet():
             else:
                 DICTIONARY['Spectral'][list_of_features[i+len_stat+len_temp]]['parameters'] = str(ast.literal_eval(val)['fs'])
                 DICTIONARY['Spectral'][list_of_features[i+len_stat+len_temp]]['use'] = 'yes'
-    qwqwq
+    
     return DICTIONARY
 
-extract_sheet()
+#extract_sheet()
