@@ -2,31 +2,37 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import numpy as np
 import ast
-import TSFEL.tsfel as tslib
+from read_json import compute_dictionary
 
 def filter_features(dic, filters):
     features_all = list(np.concatenate([list(dic[dk].keys()) for dk in sorted(dic.keys())]))
     list_shown, feat_shown = list(dic.keys()), features_all
+    cost_shown = features_all
     if filters['2'] != {}:
         list_hidden = filters['2']['hiddenValues']
         list_shown = [dk for dk in dic.keys() if dk not in list_hidden]
     if filters['1'] != {}:
         feat_hidden = filters['1']['hiddenValues']
         feat_shown = [ff for ff in features_all if ff not in feat_hidden]
-
+    if filters['3'] != {}:
+        cost_hidden = filters['3']['hiddenValues']
+        cost_shown = []
+        for dk in dic.keys():
+            cost_shown += [ff for ff in dic[dk].keys() if dic[dk][ff]['cost'] not in cost_hidden]
     features_filtered = list(np.concatenate([list(dic[dk].keys()) for dk in sorted(dic.keys()) if dk in list_shown]))
     features_filtered = [ff for ff in features_filtered if ff in feat_shown]
+    features_filtered = [cc for cc in features_filtered if cc in cost_shown]
 
     return features_filtered
 
 
 def extract_sheet():
-    FEATURES_JSON = '/TSFDlib/data/features.json'
+    FEATURES_JSON = 'features.json'
     DEFAULT = {'use': 'yes', 'metric': 'euclidean', 'free parameters': '', 'number of features': 1, 'parameters': ''}
-    DICTIONARY = tsflib.compute_dictionary(FEATURES_JSON, DEFAULT)
+    DICTIONARY = compute_dictionary(FEATURES_JSON, DEFAULT)
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name('TSFdlib-master/tsfel/utils/client_secret.json', scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
     client = gspread.authorize(creds)
     confManager = client.open("Configuration Manager")
     sheet = confManager.sheet1
@@ -63,7 +69,7 @@ def extract_sheet():
             else:
                 DICTIONARY['Spectral'][list_of_features[i+len_stat+len_temp]]['parameters'] = str(ast.literal_eval(val)['fs'])
                 DICTIONARY['Spectral'][list_of_features[i+len_stat+len_temp]]['use'] = 'yes'
-
+    qwqwq
     return DICTIONARY
 
-#extract_sheet()
+extract_sheet()
