@@ -2,7 +2,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import numpy as np
 import ast
-import tsfel as tslib
+#import TSFEL.tsfel as tslib
 
 def filter_features(dic, filters):
     features_all = list(np.concatenate([list(dic[dk].keys()) for dk in sorted(dic.keys())]))
@@ -23,7 +23,7 @@ def filter_features(dic, filters):
 def extract_sheet():
     FEATURES_JSON = '/TSFDlib/data/features.json'
     DEFAULT = {'use': 'yes', 'metric': 'euclidean', 'free parameters': '', 'number of features': 1, 'parameters': ''}
-    DICTIONARY = tslib.compute_dictionary(FEATURES_JSON, DEFAULT)
+    DICTIONARY = compute_dictionary(FEATURES_JSON, DEFAULT)
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name('TSFdlib-master/tsfel/utils/client_secret.json', scope)

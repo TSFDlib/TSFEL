@@ -20,11 +20,11 @@ Original file is located at
 import pandas as pd
 import pandas_profiling
 import numpy as np
-import TSFDlib as tslib
+import TSFEL as tslib
 
 window_size = 5
-t = np.array(pd.read_csv('TSFDlib/data/input_signal/Signal.txt'))[:,0]
-signal = np.array(pd.read_csv('TSFDlib/data/input_signal/Signal.txt'))[:,1]
+t = np.array(pd.read_csv('TSFEL/data/input_signal/Signal.txt'))[:,0]
+signal = np.array(pd.read_csv('TSFEL/data/input_signal/Signal.txt'))[:,1]
 cfg_file = tslib.extract_sheet()
   
 df = tslib.extract_features(signal, window_size, cfg_file)
