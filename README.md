@@ -1,4 +1,4 @@
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TSFEL/blob/master/TSFDlib.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TSFDLIB/TSFEL/blob/master/TSFDlib.ipynb)
 
 # Feature Extraction Library and Classification
 ## Purpose
