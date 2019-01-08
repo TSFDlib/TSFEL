@@ -9,6 +9,15 @@
             "source": "Python 2.7, Scipy Library",
             "reference": "Zwillinger, D. and Kokoska, S. (2000). CRC Standard Probability and Statistics Tables and Formulae. Champman and Hall: New York. 2000. "
         },
+	"LALALALA": {
+            "description": "Computes the skewness of a data set.",
+            "use": "no",
+            "cost": "Yellow",
+			"imports": "from scipy.stats.stats import skew",
+            "function": "skew",
+            "source": "Python 2.7, Scipy Library",
+            "reference": "Zwillinger, D. and Kokoska, S. (2000). CRC Standard Probability and Statistics Tables and Formulae. Champman and Hall: New York. 2000. "
+        },
         "Kurtosis": {
             "description": "Computes the kurtosis (Pearson) of a data set.",
             "use": "no",
