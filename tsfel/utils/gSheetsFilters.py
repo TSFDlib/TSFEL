@@ -27,7 +27,7 @@ def filter_features(dic, filters):
 
 
 def extract_sheet():
-    FEATURES_JSON = 'features.json'
+    FEATURES_JSON = 'TSFEL/tsfel/utils/features.json'
     DEFAULT = {'use': 'yes', 'metric': 'euclidean', 'free parameters': '', 'number of features': 1, 'parameters': ''}
     DICTIONARY = compute_dictionary(FEATURES_JSON, DEFAULT)
     scope = ['https://spreadsheets.google.com/feeds',
