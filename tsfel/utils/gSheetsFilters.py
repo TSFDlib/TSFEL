@@ -25,7 +25,6 @@ def filter_features(dic, filters):
 
     return features_filtered
 
-
 def extract_sheet():
     FEATURES_JSON = 'TSFEL/tsfel/utils/features.json'
     DEFAULT = {'use': 'yes', 'metric': 'euclidean', 'free parameters': '', 'number of features': 1, 'parameters': ''}
@@ -37,7 +36,7 @@ def extract_sheet():
     confManager = client.open("Configuration Manager")
     sheet = confManager.sheet1
     metadata = confManager.fetch_sheet_metadata()
-
+    list_of_features = []
     list_of_features = sheet.col_values(2)[4:]
     filters = metadata['sheets'][sheet.id]['basicFilter']['criteria']
     list_filt_features = filter_features(DICTIONARY,filters)
@@ -48,6 +47,29 @@ def extract_sheet():
     len_temp = len(DICTIONARY['Temporal'].keys())
     len_spec = len(DICTIONARY['Spectral'].keys())
 
+    assert len(list_of_features) <= (len_spec + len_stat + len_temp), \
+    "To insert a new feature, please add it to data/features.json with the code in src/utils/features.py"
+
+    # add new feature
+    if len(list_of_features) < (len_spec + len_stat + len_temp):
+        # new feature was added
+        for domain in DICTIONARY.keys():
+            for feat in DICTIONARY[domain].keys():
+                if feat not in list_of_features:
+                    feat_dict = DICTIONARY[domain][feat]
+                    if feat_dict['free parameters'] == '':
+                        param = ''
+                    if feat_dict['parameters'] == 'FS':
+                        param = str({"fs":100})
+                    new_feat = ['', feat, domain, feat_dict['cost'], param,
+                                feat_dict['description']]
+                    idx_row = sheet.findall(domain)[-1].row
+                    sheet.insert_row(new_feat, idx_row)
+        list_of_features = sheet.col_values(2)[4:]
+        filters = metadata['sheets'][sheet.id]['basicFilter']['criteria']
+        list_filt_features = filter_features(DICTIONARY, filters)
+        use_or_not = ['TRUE' if lf in list_filt_features else 'FALSE' for lf in list_of_features]
+    
     assert 'TRUE' in use_or_not, 'Please select a feature to extract!' + '\n'
 
     for i in range(len_stat):
