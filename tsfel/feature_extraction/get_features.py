@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pandas_profiling
 #import src.feature_extraction.utils.read_json as rj
-
+from TSFEL.tsfel.utils.read_json import feat_extract
 
 def extract_features(sig, size, cfg):
     feat_val = None
