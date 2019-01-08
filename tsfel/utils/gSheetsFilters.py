@@ -32,7 +32,7 @@ def extract_sheet():
     DICTIONARY = compute_dictionary(FEATURES_JSON, DEFAULT)
     scope = ['https://spreadsheets.google.com/feeds',
              'https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name('TSFEL/tsfel/utils/client_secret.json', scope)
     client = gspread.authorize(creds)
     confManager = client.open("Configuration Manager")
     sheet = confManager.sheet1
