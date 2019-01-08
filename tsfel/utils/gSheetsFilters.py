@@ -3,6 +3,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 import numpy as np
 import ast
 from TSFEL.tsfel.utils.read_json import compute_dictionary
+from TSFEL.tsfel.utils.eval import compute_complexity
 
 def filter_features(dic, filters):
     features_all = list(np.concatenate([list(dic[dk].keys()) for dk in sorted(dic.keys())]))
@@ -61,7 +62,9 @@ def extract_sheet():
                         param = ''
                     if feat_dict['parameters'] == 'FS':
                         param = str({"fs":100})
-                    new_feat = ['', feat, domain, feat_dict['cost'], param,
+                    if feat_dict['Complexity'] not in ['Linear','Log','Square','Nlog','Constant']:
+                        complexity = compute_complexity(feat_dict)
+                    new_feat = ['', feat, domain, complexity, param,
                                 feat_dict['description']]
                     idx_row = sheet.findall(domain)[-1].row
                     sheet.insert_row(new_feat, idx_row)
