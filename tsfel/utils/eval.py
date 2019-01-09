@@ -1,7 +1,7 @@
 
 import numpy as np
 from scipy.optimize import curve_fit
-from read_json import compute_dictionary, one_extract
+from TSFEL.tsfel.utils.read_json import compute_dictionary, one_extract
 import time
 import json
 ###########################################
