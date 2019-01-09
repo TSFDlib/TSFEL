@@ -130,7 +130,7 @@ def fundamental_frequency(s, FS):
     fs = fs[1:len(fs) // 2]
     f = f[1:len(f) // 2]
 
-    cond = int(np.where(f > 0.5)[0])
+    cond = int(np.where(f > 0.5)[0][0])
     bp = int(bigPeaks(fs[cond:], 0))
 
     if not bp:
