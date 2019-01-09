@@ -188,7 +188,7 @@
 		"Correlation": {
             "description":"Compute the Pearson Correlation coefficient along the specified axes.",
             "use": "no",
-            "cost": "Grey",
+            "Complexity": "Unknown",
             "imports": "from TSFEL import *",
             "function": "correlation",
             "number of features": 3,
@@ -198,7 +198,7 @@
 		"Autocorrelation": {
             "description": "Cross correlation of 1dimensional sequence.",
             "use": "no",
-            "cost": "Green",
+            "Complexity": "Unknown",
             "imports": "from TSFEL import *",
             "function": "autocorr",
             "source": "Python 2.7, Numpy Library",
@@ -209,7 +209,7 @@
         "Maximum frequency": {
             "description": "Compute the one-dimensional discrete Fourier Transform and with cumsum function find 95% of max frequency.",
             "use": "no",
-            "cost": "Yellow",
+            "Complexity": "Unknown",
             "imports": "from TSFEL import *",
             "function": "max_frequency",
 			"parameters": "FS",
@@ -219,7 +219,7 @@
         "Median frequency": {
             "description": "Compute the one-dimensional discrete Fourier Transform and with cumsum function find 50% of max frequency.",
             "use": "no",
-            "cost": "Yellow",
+            "Complexity": "Unknown",
             "imports": "from TSFEL import *",
             "function": "median_frequency",
 			"parameters": "FS",
@@ -229,7 +229,7 @@
 		"Fundamental frequency": {
             "description": "Computes the fundamental frequency along the specified axis.For an harmonic signal,the fundamental frequency is the frequency so thats its integer multiple best explain the content of the signal spectrum.",
 			"use": "no",
-            "cost": "Red",
+            "Complexity": "Unknown",
             "imports": "from TSFEL import *",
             "function": "fundamental_frequency",
 			"parameters":"FS",
@@ -239,7 +239,7 @@
 		"Maximum power spectrum": {
             "description": "Compute power spectrum density along the specified axes and return the maximum value.",
             "use": "no",
-            "cost": "Yellow",
+            "Complexity": "Unknown",
             "imports": "from TSFEL import *",
             "function": "power_spectrum",
             "parameters":"FS",
@@ -249,7 +249,7 @@
         "Total energy": {
             "description": "Computes the total energy of a data set.",
             "use": "no",
-            "cost": "Yellow",
+            "Complexity": "Unknown",
             "imports": "from TSFEL import *",
             "function": "total_energy_",
             "parameters": "FS",
@@ -259,7 +259,7 @@
         "Spectral centroid": {
             "description": "Computes the spectral centroid of a data set.",
             "use": "no",
-            "cost": "Yellow",
+            "Complexity": "Unknown",
             "imports": "from TSFEL import *",
             "function": "spectral_centroid",
             "parameters": "FS",
@@ -269,7 +269,7 @@
         "Spectral spread": {
             "description": "Computes the spectral spread of a data set.",
             "use": "no",
-            "cost": "Yellow",
+            "Complexity": "Unknown",
             "imports": "from TSFEL import *",
             "function": "spectral_spread",
             "parameters": "FS",
@@ -279,7 +279,7 @@
         "Spectral skewness": {
             "description": "Computes the spectral skewness of a data set.",
             "use": "no",
-            "cost": "Grey",
+            "Complexity": "Unknown",
             "imports": "from TSFEL import *",
             "function": "spectral_skewness",
             "parameters": "FS",
