@@ -1,7 +1,8 @@
 
 import numpy as np
 from scipy.optimize import curve_fit
-from TSFEL.tsfel.utils.read_json import compute_dictionary, one_extract
+from TSFEL.tsfel.utils.read_json import compute_dictionary
+from TSFEL.tsfel.utils.read_json import one_extract
 import time
 import json
 ###########################################
@@ -103,11 +104,4 @@ def compute_complexity(feat, domain):
     else:
         return 0
 
-FEATURES_JSON = 'features.json'
-DEFAULT = {'use': 'yes', 'metric': 'euclidean', 'free parameters': '', 'number of features': 1, 'parameters': ''}
-dictionary = compute_dictionary(FEATURES_JSON, DEFAULT)
-for domain in dictionary.keys():
-    for feat in dictionary[domain].keys():
-        print(feat)
-        print(compute_complexity(feat, domain))
 # find_best_curve(signal)
