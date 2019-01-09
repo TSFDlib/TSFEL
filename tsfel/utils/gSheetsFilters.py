@@ -16,10 +16,11 @@ def filter_features(dic, filters):
         feat_hidden = filters['1']['hiddenValues']
         feat_shown = [ff for ff in features_all if ff not in feat_hidden]
     if filters['3'] != {}:
-        cost_hidden = filters['3']['hiddenValues']
+        cost_numbers = filters['3']['hiddenValues']
+        cost_hidden = list(np.concatenate([['Constant','Log'] if cn == 1 else ['Squared','Nlog'] if cn == 3 else ['Linear'] if cn == 2 else ['Unknown'] for cn in cost_numbers]))
         cost_shown = []
         for dk in dic.keys():
-            cost_shown += [ff for ff in dic[dk].keys() if dic[dk][ff]['cost'] not in cost_hidden]
+            cost_shown += [ff for ff in dic[dk].keys() if dic[dk][ff]['Complexity'] not in cost_hidden]
     features_filtered = list(np.concatenate([list(dic[dk].keys()) for dk in sorted(dic.keys()) if dk in list_shown]))
     features_filtered = [ff for ff in features_filtered if ff in feat_shown]
     features_filtered = [cc for cc in features_filtered if cc in cost_shown]
