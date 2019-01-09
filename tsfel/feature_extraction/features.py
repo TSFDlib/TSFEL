@@ -125,7 +125,7 @@ def fundamental_frequency(s, FS):
     """
 
     s = s - np.mean(s)
-    f, fs = plotfft(s, FS, doplot=False)
+    f, fs = plotfft(s, FS)
 
     fs = fs[1:len(fs) / 2]
     f = f[1:len(f) / 2]
@@ -157,7 +157,7 @@ def max_frequency(sig, FS):
        0.95 of max_frequency using cumsum.
     """
 
-    f, fs = plotfft(sig, FS, doplot=False)
+    f, fs = plotfft(sig, FS)
     t = np.cumsum(fs)
 
     try:
@@ -183,7 +183,7 @@ def median_frequency(sig, FS):
        0.50 of max_frequency using cumsum.
     """
 
-    f, fs = plotfft(sig, FS, doplot=False)
+    f, fs = plotfft(sig, FS)
     t = np.cumsum(fs)
     ind_mag = np.where(t > t[-1] * 0.50)[0][0]
     f_median = f[ind_mag]
