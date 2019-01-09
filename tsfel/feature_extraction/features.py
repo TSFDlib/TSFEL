@@ -624,7 +624,7 @@ def signal_energy(sign, time):
     window_len = len(sign)
 
     # window for energy calculation
-    window = window_len/10 # each window of the total signal will have 10 windows
+    window = window_len//10 # each window of the total signal will have 10 windows
 
     energy = np.zeros(int(window_len/window))
     time_energy = np.zeros(int(window_len/window))
