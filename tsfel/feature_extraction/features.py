@@ -4,7 +4,6 @@ from scipy.stats.stats import pearsonr
 from scipy.stats import kurtosis, skew
 from novainstrumentation.peaks import bigPeaks
 from novainstrumentation.tools import plotfft
-import novainstrumentation as ni
 import numpy as np
 ########################################################################################################################
 # ####################################  TEMPORAL DOMAIN  ############################################################# #
@@ -656,20 +655,20 @@ def total_energy_(sign, FS):
 
 # Spectral Centroid
 def spectral_centroid(sign, fs): #enter the portion of the signal
-    f, ff = ni.plotfft(sign, fs)
+    f, ff = plotfft(sign, fs)
     return np.dot(f,ff/np.sum(ff))
 
 
 # Spectral Spread
 def spectral_spread(sign, fs):
-    f, ff = ni.plotfft(sign, fs)
+    f, ff = plotfft(sign, fs)
     spect_centr = spectral_centroid(sign, fs)
     return np.dot(((f-spect_centr)**2),(ff / np.sum(ff)))
 
 
 # Spectral Skewness
 def spectral_skewness(sign, fs):
-    f, ff = ni.plotfft(sign, fs)
+    f, ff = plotfft(sign, fs)
     spect_centr = spectral_centroid(sign, fs)
     skew = ((f-spect_centr)**3)*(ff / np.sum(ff))
     spect_skew = np.sum(skew)
@@ -678,7 +677,7 @@ def spectral_skewness(sign, fs):
 
 # Spectral Kurtosis
 def spectral_kurtosis(sign, fs):
-    f, ff = ni.plotfft(sign, fs)
+    f, ff = plotfft(sign, fs)
     spect_kurt = ((f-spectral_centroid(sign, fs))**4)*(ff / np.sum(ff))
     skew = np.sum(spect_kurt)
     return skew/(spectral_spread(sign, fs)**2)
@@ -702,7 +701,7 @@ def spectral_slope(sign, fs):
     b: float
         y-intercept
     """
-    f, ff = ni.plotfft(sign, fs)
+    f, ff = plotfft(sign, fs)
     return (len(f) * np.dot(f, ff) - np.sum(f) * np.sum(ff)) / (len(f) * np.dot(f, f) - np.sum(f) ** 2)
 
 
@@ -730,7 +729,7 @@ def spectral_slope(sign, fs):
 # Spectral Decrease
 def spectral_decrease(sign, fs):
 
-    f, ff = ni.plotfft(sign, fs)
+    f, ff = plotfft(sign, fs)
 
     k = len(ff)
     soma_num = 0
@@ -748,7 +747,7 @@ def spectral_decrease(sign, fs):
 def spectral_roll_on(sign, fs):
 
     output = None
-    f, ff = ni.plotfft(sign, fs)
+    f, ff = plotfft(sign, fs)
     cum_ff = np.cumsum(ff)
     value = 0.05*(sum(ff))
 
@@ -775,7 +774,7 @@ def spectral_roll_off(sign, fs):
         spectral roll-off
     """
     output = None
-    f, ff = ni.plotfft(sign, fs)
+    f, ff = plotfft(sign, fs)
     cum_ff = np.cumsum(ff)
     value = 0.95*(sum(ff))
 
@@ -788,7 +787,7 @@ def spectral_roll_off(sign, fs):
 
 def curve_distance(sign, fs):
 
-    f, ff = ni.plotfft(sign, fs)
+    f, ff = plotfft(sign, fs)
     cum_ff = np.cumsum(ff)
     points_y = np.linspace(0, cum_ff[-1], len(cum_ff))
 
@@ -801,7 +800,7 @@ def spect_variation(sign, fs):
     returns the temporal variation
     '''
 
-    f, ff = ni.plotfft(sign, fs)
+    f, ff = plotfft(sign, fs)
     energy, freq = signal_energy(ff, f)
 
     sum1 = 0
@@ -877,7 +876,7 @@ def spectral_maxpeaks(sign, FS):
         total number of peaks
 
     """
-    f, ff = ni.plotfft(sign, FS)
+    f, ff = plotfft(sign, FS)
     diff_sig = np.diff(ff)
 
     return np.sum([1 for nd in range(len(diff_sig[:-1])) if (diff_sig[nd+1]<0 and diff_sig[nd]>0)])
