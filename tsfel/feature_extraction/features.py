@@ -127,8 +127,8 @@ def fundamental_frequency(s, FS):
     s = s - np.mean(s)
     f, fs = plotfft(s, FS)
 
-    fs = fs[1:len(fs) / 2]
-    f = f[1:len(f) / 2]
+    fs = fs[1:len(fs) // 2]
+    f = f[1:len(f) // 2]
 
     cond = find(f > 0.5)[0]
     bp = bigPeaks(fs[cond:], 0)
