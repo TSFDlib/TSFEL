@@ -71,7 +71,7 @@ def find_best_curve(t, signal):
 
 
 def compute_complexity(feat, domain):
-    FEATURES_JSON = 'features.json'
+    FEATURES_JSON = 'TSFEL/tsfel/utils/features.json'
     DEFAULT = {'use': 'yes', 'metric': 'euclidean', 'free parameters': '', 'number of features': 1, 'parameters': ''}
     dictionary = compute_dictionary(FEATURES_JSON, DEFAULT)
     t = np.logspace(3.0, 5.0, 6)
