@@ -185,16 +185,6 @@
             "source": "NovaInstrumentation",
             "reference": "NovaInstrumentation"
         },
-		"Correlation": {
-            "description":"Compute the Pearson Correlation coefficient along the specified axes.",
-            "use": "no",
-            "Complexity": "Unknown",
-            "imports": "from TSFEL import *",
-            "function": "correlation",
-            "number of features": 3,
-            "source": "Python 2.7, Scipy Library",
-            "reference": "www.statsoft.com/textbook/glosp.html#Pearson%20Correlation"
-		},
 		"Autocorrelation": {
             "description": "Cross correlation of 1dimensional sequence.",
             "use": "no",
