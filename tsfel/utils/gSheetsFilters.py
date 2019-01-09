@@ -63,7 +63,7 @@ def extract_sheet():
                     if feat_dict['parameters'] == 'FS':
                         param = str({"fs":100})
                     if feat_dict['Complexity'] not in ['Linear','Log','Square','Nlog','Constant']:
-                        complexity = compute_complexity(feat_dict)
+                        complexity = compute_complexity(feat, domain)
                     new_feat = ['', feat, domain, complexity, param,
                                 feat_dict['description']]
                     idx_row = sheet.findall(domain)[-1].row
