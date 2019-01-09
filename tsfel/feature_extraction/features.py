@@ -5,12 +5,12 @@ from scipy.stats import kurtosis, skew
 from novainstrumentation.peaks import bigPeaks
 #from novainstrumentation.tools import plotfft
 import numpy as np
-########################################################################################################################
+
 # ####################################  TEMPORAL DOMAIN  ############################################################# #
 ########################################################################################################################
 
 
-def plotfft(s, fmax, doplot=False):
+def plotfft(s, fmax):
     """ This functions computes the fft of a signal, returning the frequency
     and their magnitude values.
     Parameters
@@ -30,9 +30,7 @@ def plotfft(s, fmax, doplot=False):
     """
 
     fs = abs(np.fft.fft(s))
-    f = linspace(0, fmax / 2, len(s) / 2)
-    if doplot:
-        pl.plot(f[1:len(s) // 2], fs[1:len(s) // 2])
+    f = np.linspace(0, fmax / 2, len(s) / 2)
     return (f[1:len(s) // 2].copy(), fs[1:len(s) // 2].copy())
 
 
