@@ -216,16 +216,6 @@
             "source": "Python 2.7, Numpy Library",
             "reference": "Python 2.7, Numpy Library"
         },
-		"Fundamental frequency": {
-            "description": "Computes the fundamental frequency along the specified axis.For an harmonic signal,the fundamental frequency is the frequency so thats its integer multiple best explain the content of the signal spectrum.",
-			"use": "no",
-            "Complexity": "Unknown",
-            "imports": "from TSFEL import *",
-            "function": "fundamental_frequency",
-			"parameters":"FS",
-            "source": "NovaInstrumentation Library",
-            "reference": "NovaInstrumentation Library"
-        },
 		"Maximum power spectrum": {
             "description": "Compute power spectrum density along the specified axes and return the maximum value.",
             "use": "no",
