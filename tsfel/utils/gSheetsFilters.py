@@ -75,6 +75,10 @@ def extract_sheet():
         filters = metadata['sheets'][sheet.id]['basicFilter']['criteria']
         list_filt_features = filter_features(DICTIONARY, filters)
         use_or_not = ['TRUE' if lf in list_filt_features else 'FALSE' for lf in list_of_features]
+        
+        len_stat = len(DICTIONARY['Statistical'].keys())
+        len_temp = len(DICTIONARY['Temporal'].keys())
+        len_spec = len(DICTIONARY['Spectral'].keys())
     
     assert 'TRUE' in use_or_not, 'Please select a feature to extract!' + '\n'
 
