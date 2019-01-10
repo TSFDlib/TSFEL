@@ -60,7 +60,7 @@ def extract_sheet():
                 if feat not in list_of_features:
                     feat_dict = DICTIONARY[domain][feat]
                     if feat_dict['free parameters']:
-                        param = feat_dict['free_parameters']
+                        param = feat_dict['free parameters']
                     if feat_dict['parameters'] == 'FS':
                         param = str({"fs":100})
                     curve = feat_dict['Complexity']
