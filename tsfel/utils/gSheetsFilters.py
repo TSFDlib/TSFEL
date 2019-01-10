@@ -59,6 +59,7 @@ def extract_sheet():
             for feat in DICTIONARY[domain].keys():
                 if feat not in list_of_features:
                     feat_dict = DICTIONARY[domain][feat]
+                    param = ''
                     if feat_dict['free parameters']:
                         param = feat_dict['free parameters']
                     if feat_dict['parameters'] == 'FS':
