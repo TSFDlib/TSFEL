@@ -205,16 +205,6 @@
             "source": "Python 2.7, Numpy Library",
             "reference": "Python 2.7, Numpy Library"
         },
-		"Maximum power spectrum": {
-            "description": "Compute power spectrum density along the specified axes and return the maximum value.",
-            "use": "no",
-            "Complexity": "Unknown",
-            "imports": "from TSFEL import *",
-            "function": "power_spectrum",
-            "parameters":"FS",
-            "source": "Python 2.7, Numpy Library",
-            "reference": "Python 2.7, Numpy Library"
-        },
         "Total energy": {
             "description": "Computes the total energy of a data set.",
             "use": "no",
