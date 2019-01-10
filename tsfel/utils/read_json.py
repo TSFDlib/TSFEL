@@ -239,7 +239,7 @@ def one_extract(feat_dict, signal_window, FS = 100, iteration=None):
             func_results += [eval_result[rr]]
 
         #Low g sum, for total acceleration
-        if func_total[i] == 'hist_json' and signal_label=='tot':
+        if func_total == 'hist_json' and signal_label=='tot':
 
             nbins = dictionary['statistical']['histogram']['free parameters']['nbins'][0]
             factor= int(0.10*nbins)
