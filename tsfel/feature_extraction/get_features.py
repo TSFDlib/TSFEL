@@ -22,6 +22,9 @@ def extract_features(sig, cfg, segment=True, window_size=5):
     df = pd.DataFrame(data=d)
     df.to_csv('TSFEL/tsfel/utils/Features.csv', sep=',', encoding='utf-8', index_label="Sample")
 
+    return df
+
+def correlation_report(df):
     profile = pandas_profiling.ProfileReport(df)
     profile.to_file(outputfile="CorrelationReport.html")
     inp = str(input('Do you wish to remove correlated features? Enter y/n: '))
@@ -32,5 +35,4 @@ def extract_features(sig, cfg, segment=True, window_size=5):
         for rej in reject:
             print('Removing ' + str(rej))
             df = df.drop(rej, axis=1)
-
     return df
