@@ -4,12 +4,13 @@ import pandas_profiling
 #import src.feature_extraction.utils.read_json as rj
 from TSFEL.tsfel.utils.read_json import feat_extract
 
-def extract_features(sig, size, cfg):
+def extract_features(sig, size, cfg, segment=True, window=5):
     feat_val = None
     labels = None
 
     header = np.array(pd.read_csv('TSFEL/tests/input_signal/Signal.txt', delimiter=',', header=None))[0, 1:]
-    windows = [sig[i:i + size] for i in range(0, len(sig), size)]
+    if segment:
+        windows = [sig[i:i + size] for i in range(0, len(sig), size)]
     for wind_idx, wind_sig in enumerate(windows):
         row_idx, labels = feat_extract(cfg, wind_sig, str(header[0]))
         if wind_idx == 0:
