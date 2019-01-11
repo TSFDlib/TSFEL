@@ -10,8 +10,8 @@ def extract_features(sig, cfg, segment=True, window_size=5):
 
     header = np.array(pd.read_csv('TSFEL/tests/input_signal/Signal.txt', delimiter=',', header=None))[0, 1:]
     if segment:
-        windows = [sig[i:i + window_size] for i in range(0, len(sig), window_size)]
-    for wind_idx, wind_sig in enumerate(windows):
+        sig = [sig[i:i + window_size] for i in range(0, len(sig), window_size)]
+    for wind_idx, wind_sig in enumerate(sig):
         row_idx, labels = feat_extract(cfg, wind_sig, str(header[0]))
         if wind_idx == 0:
             feat_val = row_idx
