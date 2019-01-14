@@ -16,7 +16,7 @@ def extract_features(sig, cfg, segment=True, window_size=5):
         if len(sig.shape) >= 3:
             for i in range(sig.shape[1]):
                 _row_idx, labels = feat_extract(cfg, wind_sig[i], str(header[0]))
-            row_idx.append(_row_idx)
+                row_idx.append(_row_idx)
         else:
             row_idx, labels = feat_extract(cfg, wind_sig, str(header[0]))
         if wind_idx == 0:
