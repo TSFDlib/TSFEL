@@ -7,6 +7,7 @@ from TSFEL.tsfel.utils.read_json import feat_extract
 def extract_features(sig, cfg, segment=True, window_size=5):
     feat_val = None
     labels = None
+    features = []
 
     header = np.array(pd.read_csv('TSFEL/tests/input_signal/Signal.txt', delimiter=',', header=None))[0, 1:]
     if segment:
@@ -14,6 +15,7 @@ def extract_features(sig, cfg, segment=True, window_size=5):
     for wind_idx, wind_sig in enumerate(sig):
         for i in range(len(wind_sig)):
             row_idx, labels = feat_extract(cfg, wind_sig[i], str(header[0]))
+        features.append(row_idx)
         if wind_idx == 0:
             feat_val = row_idx
         else:
