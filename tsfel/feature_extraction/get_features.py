@@ -18,7 +18,7 @@ def extract_features(sig, label, cfg, segment=True, window_size=5):
                 _row_idx, labels = feat_extract(cfg, wind_sig[i], label)
                 row_idx.append(_row_idx)
         else:
-            row_idx, labels = feat_extract(cfg, wind_sig, str(header[0]))
+            row_idx, labels = feat_extract(cfg, wind_sig, label)
         if wind_idx == 0:
             feat_val = row_idx
         else:
