@@ -12,7 +12,8 @@ def extract_features(sig, cfg, segment=True, window_size=5):
     if segment:
         sig = [sig[i:i + window_size] for i in range(0, len(sig), window_size)]
     for wind_idx, wind_sig in enumerate(sig):
-        row_idx, labels = feat_extract(cfg, wind_sig, str(header[0]))
+        for i in range(len(wind_sig)):
+            row_idx, labels = feat_extract(cfg, wind_sig[i], str(header[0]))
         if wind_idx == 0:
             feat_val = row_idx
         else:
