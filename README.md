@@ -1,5 +1,8 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TSFDlib/TSFEL/blob/master/HAR_Example.ipynb)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TSFDlib/TSFEL/blob/master/HAR_solution.ipynb)
+
+
 # Feature Extraction Library and Classification
 ## Purpose
 This package contains feature extraction tools and machine learning algorithms for time series data classification.
