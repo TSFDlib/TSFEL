@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import pandas_profiling
+from sklearn.metrics import accuracy_score
 #import src.feature_extraction.utils.read_json as rj
 from TSFEL.tsfel.utils.read_json import feat_extract
 
