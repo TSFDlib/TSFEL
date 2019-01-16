@@ -1,4 +1,4 @@
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TSFDlib/TSFEL/blob/master/HAR_example.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/TSFDlib/TSFEL/blob/master/HAR_Example.ipynb)
 
 # Feature Extraction Library and Classification
 ## Purpose
