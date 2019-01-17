@@ -27,7 +27,7 @@ def filter_features(dic, filters):
 
     return features_filtered
 
-def extract_sheet():
+def extract_sheet(gSheetName):
     FEATURES_JSON = 'TSFEL/tsfel/utils/features.json'
     DEFAULT = {'use': 'yes', 'metric': 'euclidean', 'free parameters': '', 'number of features': 1, 'parameters': ''}
     DICTIONARY = compute_dictionary(FEATURES_JSON, DEFAULT)
@@ -35,7 +35,7 @@ def extract_sheet():
              'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name('TSFEL/tsfel/utils/client_secret.json', scope)
     client = gspread.authorize(creds)
-    confManager = client.open("Configuration Manager")
+    confManager = client.open(gSheetName)
     sheet = confManager.sheet1
     metadata = confManager.fetch_sheet_metadata()
     list_of_features = []
