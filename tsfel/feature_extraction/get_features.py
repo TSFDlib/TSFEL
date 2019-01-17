@@ -8,6 +8,8 @@ def extract_features(sig, label, cfg, segment=True, window_size=5):
     labels = None
     features = []
     row_idx = []
+    print("*** Feature extraction started ***")
+
     #header = np.array(pd.read_csv('TSFEL/tests/input_signal/Signal.txt', delimiter=',', header=None))[0, 1:]
     if segment:
         sig = [sig[i:i + window_size] for i in range(0, len(sig), window_size)]
@@ -26,5 +28,6 @@ def extract_features(sig, label, cfg, segment=True, window_size=5):
     d = {str(lab): feat_val[:,idx] for idx, lab in enumerate(labels)}
     df = pd.DataFrame(data=d)
     df.to_csv('TSFEL/tsfel/utils/Features.csv', sep=',', encoding='utf-8', index_label="Sample")
+    print("*** Feature extraction finished ***")
 
     return df

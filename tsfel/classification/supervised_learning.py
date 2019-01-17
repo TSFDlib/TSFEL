@@ -12,7 +12,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score
 
 
-def find_best_classifier(features, labels, X_train, X_test, y_train, y_test):
+def find_best_slclassifier(features, labels, X_train, X_test, y_train, y_test):
     """
     This function performs the classification of the given features using several classifiers. From the obtained results
     the classifier which best fits the data and gives the best result is chosen and the respective confusion matrix is

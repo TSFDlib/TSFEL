@@ -10,6 +10,8 @@ def FSE(X_train, X_test, y_train, y_test, labs, classifier):
     total_acc, FS_lab, acc_list = [], [], []
     X_train = np.array(X_train)
     X_test = np.array(X_test)
+
+    print("*** Feature selection started ***")
     for feat_idx, feat_name in enumerate(labs):
         classifier.fit(X_train[:,feat_idx].reshape(-1,1), y_train)
         y_test_predict = classifier.predict(X_test[:,feat_idx].reshape(-1,1))
@@ -51,6 +53,8 @@ def FSE(X_train, X_test, y_train, y_test, labs, classifier):
             break
         counter += 1
         print(counter)
+    print("*** Feature selection finished ***")
+
     return np.array(FS_X_train), np.array(FS_X_test), np.array(FS_lab)
 
 
