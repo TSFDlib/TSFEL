@@ -14,7 +14,7 @@ from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from sklearn.model_selection import cross_val_score
 import numpy as np
 
-def find_best_classifier(features, subj_lab, X_train, y_train):
+def hyperparam_tunning(features, subj_lab, X_train, y_train):
     """
     This function performs the classification of the given features using several classifiers. From the obtained results
     the classifier which best fits the data and gives the best result is chosen and the respective confusion matrix is
