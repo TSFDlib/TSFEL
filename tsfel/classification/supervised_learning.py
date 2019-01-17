@@ -39,7 +39,7 @@ def find_best_slclassifier(features, labels, X_train, X_test, y_train, y_test):
     best_classifier = None
 
     for n, c in zip(names, classifiers):
-        print n
+        print(n)
         scores = cross_val_score(c, features, labels, cv=10)
         print("Accuracy: %0.3f (+/- %0.3f)" % (scores.mean(), scores.std() * 2))
 
