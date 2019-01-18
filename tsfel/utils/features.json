@@ -1,5 +1,16 @@
 {
     "Statistical": {
+        "Histogram": {
+            "description": "The grouping of the data into bins, plotting the number of members in each bin against the bin number.",
+            "use": "no",
+            "cost": "10",
+            "imports": "from TSFDlib import *",
+            "function": "hist",
+            "free parameters":{"nbins": 10,  "r": 1},
+            "number of features": 3,
+            "source": "Python 2.7, Numpy Library",
+            "reference": "Python 2.7, Numpy Library"
+},
         "Skewness": {
             "description": "Computes the skewness of a data set.",
             "use": "no",
@@ -74,12 +85,12 @@
         }
     },
     "Temporal": {
-        "Length": {
+        "Signal distance": {
             "description": "Computes the length of the signal.",
             "use": "no",
             "Complexity": "Unknown",
 			"imports": "",
-            "function": "len",
+            "function": "distance",
             "source": "",
             "reference": ""
         },
@@ -237,10 +248,19 @@
             "use": "no",
             "Complexity": "Unknown",
             "imports": "from TSFEL import *",
-            "function": "total_energy_",
+            "function": "total_energy",
             "parameters": "FS",
             "source": "Python 2.7, Scipy Library",
 			"reference": "G. Peeters, “A large set of audio features for sound description (similarity and classification) in the cuidado project”, 2004."
+        },
+        "Max power spectrum": {
+            "description": "Compute power spectrum density along the specified axes and return the maximum value.",
+            "use": "no",
+			"imports": "from features import *",
+            "function": "max_power_spectrum",
+            "parameters":"FS",
+            "source": "Python 2.7, Numpy Library",
+            "reference": "Python 2.7, Numpy Library"
         },
         "Spectral centroid": {
             "description": "Computes the spectral centroid of a data set.",

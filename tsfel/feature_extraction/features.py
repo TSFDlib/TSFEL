@@ -3,12 +3,21 @@
 from scipy.stats.stats import pearsonr
 from scipy.stats import kurtosis, skew
 from novainstrumentation.peaks import bigPeaks
+import novainstrumentation as ni
 #from novainstrumentation.tools import plotfft
 import numpy as np
-
+from scipy import signal
 # ####################################  TEMPORAL DOMAIN  ############################################################# #
 ########################################################################################################################
-
+def distance(sig):
+    """
+    Calculates the total distance traveled by the signal,
+    using the hipotenusa between 2 datapoints
+    :param sig: The signal
+    :return: The signal distance
+    """
+    df_sig = np.diff(sig)
+    return np.sum([np.sqrt(1+df**2) for df in df_sig])
 
 def plotfft(s, fmax):
     """ This functions computes the fft of a signal, returning the frequency
@@ -104,6 +113,27 @@ def interq_range(sig):
 ########################################################################################################################
 # ############################################ SPECTRAL DOMAIN ####################################################### #
 ########################################################################################################################
+def _bigPeaks(s, th, min_peak_distance=5, peak_return_percentage=0.1):
+    p = ni.peaks(s, th)
+    pp = []
+    if len(p) == 0:
+        pp = []
+    else:
+        p = ni.clean_near_peaks(s, p, min_peak_distance)
+
+        if len(p) != 0:
+            ars = np.argsort(s[p])
+            pp = p[ars]
+
+            num_peaks_to_return = int(np.ceil(len(p) * peak_return_percentage))
+
+            pp = pp[-num_peaks_to_return:]
+        else:
+            pp == []
+
+
+    return pp
+
 
 # Compute Fundamental Frequency
 def fundamental_frequency(s, FS):
@@ -128,19 +158,16 @@ def fundamental_frequency(s, FS):
 
     fs = fs[1:len(fs) // 2]
     f = f[1:len(f) // 2]
-
     try:
-        cond = int(np.where(f > 0.5)[0][0])
+        cond = np.where(f > 0.5)[0][0]
     except:
-        cond = np.argmax(f)
-    bp = bigPeaks(fs[cond:], 0)
-
-    if not bp:
+        cond = np.argmin(f)
+    bp = _bigPeaks(fs[cond:], 0)
+    if not list(bp):
         f0 = 0
     else:
         bp = bp + cond
         f0 = f[min(bp)]
-
     return f0
 
 
@@ -221,7 +248,7 @@ def ceps_coeff(sig,coefNumber):
 
 
 # Power Spectrum Density
-def power_spectrum(sig, FS):
+def max_power_spectrum(sig, FS):
     """Compute power spectrum density along the specified axes.
 
     Parameters
@@ -238,10 +265,11 @@ def power_spectrum(sig, FS):
         max frequency corresponding to the elements in power spectrum.
 
     """
+
     if np.std(sig) == 0:
-        return float(max(psd(sig, int(FS))[0]))
+        return float(max(signal.welch(sig, int(FS))[1]))
     else:
-        return float(max(psd(sig/np.std(sig), int(FS))[0]))
+        return float(max(signal.welch(sig/np.std(sig), int(FS))[1]))
 
 
 def power_bandwidth(sig, FS, samples):
@@ -262,7 +290,7 @@ def power_bandwidth(sig, FS, samples):
     """
     bd = []
     bdd = []
-    power, freq = psd(sig/np.std(sig), FS)
+    freq, power = signal.welch(sig/np.std(sig), FS)
 
     for i in range(len(power)):
         bd += [float(power[i])]
@@ -541,38 +569,8 @@ def rms(sig):
 
      return np.sqrt(np.sum(np.array(sig)**2)/len(sig))
 
-# Histogram
-def hist(sig,nbins,r):
-    """Compute histogram along the specified axes.
-
-    Parameters
-    ----------
-    sig: ndarray
-        input from histogram is computed.
-    nbins: int
-     the number of equal-width bins in the givel range.
-    rang: [float,float]
-        the lower and upper range of the bins.
-    Returns
-    -------
-    histsig: ndarray
-        the values of the histogram
-
-    bin_edges: ndarray
-        the bin_edges, 'len(hist)+1'
-
-    """
-
-    histsig, bin_edges = np.histogram(sig[::10], bins=nbins, range = r, density=False) #TODO:subsampling parameter
-
-    bin_edges = bin_edges[:-1]
-    bin_edges += (bin_edges[1]-bin_edges[0])/2.
-
-    return tuple(histsig)
-
-
 # Histogram for json format
-def hist_json(sig, nbins, r):
+def hist(sig, nbins, r):
     """Compute histogram along the specified axes.
 
     Parameters
@@ -593,7 +591,7 @@ def hist_json(sig, nbins, r):
 
     """
 
-    histsig, bin_edges = np.histogram(sig, bins=nbins, range=[-r, r], density=False) #TODO:subsampling parameter
+    histsig, bin_edges = np.histogram(sig, bins=nbins, range=[-r, r], density=True) #TODO:subsampling parameter
 
     # bin_edges = bin_edges[:-1]
     # bin_edges += (bin_edges[1]-bin_edges[0])/2.
@@ -636,24 +634,6 @@ def maxpeaks(sig):
     diff_sig = np.diff(sig)
 
     return np.sum([1 for nd in range(len(diff_sig[:-1])) if (diff_sig[nd+1]<0 and diff_sig[nd]>0)])
-
-def all_pk(sig):
-    """Compute number of peaks along the specified axes.
-
-    Parameters
-    ----------
-    sig: ndarray
-        input from histogram is computed.
-    type: string
-        can be 'all', 'max', and 'min', and expresses which peaks are going to be accounted
-    Returns
-    -------
-    num_p: float
-        total number of peaks
-
-    """
-
-    return max_pk(sig) + min_pk(sig)
 ########################################################################################################################
 # ######################################### CUIDADO FEATURES ######################################################### #
 ########################################################################################################################
@@ -685,15 +665,18 @@ def signal_energy(sign, time):
     window_len = len(sign)
 
     # window for energy calculation
-    window = window_len//10 # each window of the total signal will have 10 windows
+    if window_len < 10:
+        window = 1
+    else:
+        window = window_len//10 # each window of the total signal will have 10 windows
 
-    energy = np.zeros(int(window_len/window))
-    time_energy = np.zeros(int(window_len/window))
+    energy = np.zeros(window_len//window)
+    time_energy = np.zeros(window_len//window)
 
     i = 0
     for a in range(0, len(sign) - window, window):
         energy[i] = np.sum(np.array(sign[a:a+window])**2)
-        interval_time = time[int(a+(window/2))]
+        interval_time = time[int(a+(window//2))]
         time_energy[i] = interval_time
         i += 1
 
@@ -729,7 +712,7 @@ def centroid(sign, FS):
 
 
 # Total Energy
-def total_energy_(sign, FS):
+def total_energy(sign, FS):
     """
     Compute the acc_total power, using the given windowSize and value time in samples
 
@@ -740,33 +723,43 @@ def total_energy_(sign, FS):
 
 
 # Spectral Centroid
-def spectral_centroid(sign, fs): #enter the portion of the signal
+def spectral_centroid(sign, fs): #center portion of the signal
     f, ff = plotfft(sign, fs)
-    return np.dot(f,ff/np.sum(ff))
+    if not np.sum(ff):
+        return 0
+    else:
+        return np.dot(f,ff/np.sum(ff))
 
 
 # Spectral Spread
 def spectral_spread(sign, fs):
     f, ff = plotfft(sign, fs)
     spect_centr = spectral_centroid(sign, fs)
-    return np.dot(((f-spect_centr)**2),(ff / np.sum(ff)))
+    if not np.sum(ff):
+        return 0
+    else:
+        return np.dot(((f-spect_centr)**2), (ff / np.sum(ff)))
 
 
 # Spectral Skewness
 def spectral_skewness(sign, fs):
     f, ff = plotfft(sign, fs)
     spect_centr = spectral_centroid(sign, fs)
-    skew = ((f-spect_centr)**3)*(ff / np.sum(ff))
-    spect_skew = np.sum(skew)
-    return spect_skew/(spectral_spread(sign, fs)**(3/2))
+    if not spectral_spread(sign, fs):
+        return 0
+    else:
+        skew = ((f - spect_centr) ** 3) * (ff / np.sum(ff))
+        return np.sum(skew) / (spectral_spread(sign, fs) ** (3 / 2))
 
 
 # Spectral Kurtosis
 def spectral_kurtosis(sign, fs):
     f, ff = plotfft(sign, fs)
-    spect_kurt = ((f-spectral_centroid(sign, fs))**4)*(ff / np.sum(ff))
-    skew = np.sum(spect_kurt)
-    return skew/(spectral_spread(sign, fs)**2)
+    if not spectral_spread(sign, fs):
+        return 0
+    else:
+        spect_kurt = ((f - spectral_centroid(sign, fs)) ** 4) * (ff / np.sum(ff))
+        return np.sum(spect_kurt) / (spectral_spread(sign, fs)**2)
 
 
 # Spectral Slope
@@ -791,27 +784,6 @@ def spectral_slope(sign, fs):
     return (len(f) * np.dot(f, ff) - np.sum(f) * np.sum(ff)) / (len(f) * np.dot(f, f) - np.sum(f) ** 2)
 
 
-# # Spectral Decrease
-# def spectral_decrease(sign, fs):
-#
-#     f, ff = ni.plotfft(sign, fs)
-#     energy, freq = signal_energy(ff, f)
-#
-#     soma_den = 0
-#     soma_num = 0
-#     k = len(energy)
-#
-#     for a in range(2, k):
-#         soma_den = soma_den+energy[a]
-#         soma_num = soma_num+((energy[a]-energy[0])/(a-1))
-#
-#     if soma_den == 0:
-#         spect_dec = 0
-#     else:
-#         spect_dec = (1/soma_den)*soma_num
-#
-#     return spect_dec
-
 # Spectral Decrease
 def spectral_decrease(sign, fs):
 
@@ -823,16 +795,15 @@ def spectral_decrease(sign, fs):
         soma_num = soma_num + ((ff[a]-ff[1])/(a-1))
 
     ff2 = ff[2:]
-    soma_den = 1/np.sum(ff2)
-
-    if soma_den == 0:
+    if not np.sum(ff2):
         return 0
     else:
+        soma_den = 1 / np.sum(ff2)
         return soma_den * soma_num
 
 def spectral_roll_on(sign, fs):
 
-    output = None
+    output = 0
     f, ff = plotfft(sign, fs)
     cum_ff = np.cumsum(ff)
     value = 0.05*(sum(ff))
@@ -859,7 +830,7 @@ def spectral_roll_off(sign, fs):
     roll_off: float
         spectral roll-off
     """
-    output = None
+    output = 0
     f, ff = plotfft(sign, fs)
     cum_ff = np.cumsum(ff)
     value = 0.95*(sum(ff))
@@ -897,7 +868,7 @@ def spect_variation(sign, fs):
         sum2 = sum2+(energy[a-1]**2)
         sum3 = sum3+(energy[a]**2)
 
-    if (sum2 == 0 or sum3 == 0):
+    if not sum2 or not sum3:
         variation = 1
     else:
         variation = 1-((sum1)/((sum2**0.5)*(sum3**0.5)))
