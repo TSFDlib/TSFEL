@@ -24,7 +24,6 @@ def FSE(X_train, X_test, y_train, y_test, labs, classifier):
     FS_X_test = X_test[:,curr_acc_idx]
     total_acc.append(last_acc)
 
-    counter = 1
     while 1:
         acc_list = []
         for feat_idx, feat_name in enumerate(labs):
@@ -51,8 +50,6 @@ def FSE(X_train, X_test, y_train, y_test, labs, classifier):
             print("From ", str(len(X_train[0])), "to ", str(len(FS_lab)))
 
             break
-        counter += 1
-        print(counter)
     print("*** Feature selection finished ***")
 
     return np.array(FS_X_train), np.array(FS_X_test), np.array(FS_lab)

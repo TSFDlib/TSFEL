@@ -30,9 +30,8 @@ def plotfft(s, fmax):
     """
 
     fs = abs(np.fft.fft(s))
-    f = np.linspace(0, fmax / 2, len(s) / 2)
+    f = np.linspace(0, fmax // 2, len(s) // 2)
     return (f[1:len(s) // 2].copy(), fs[1:len(s) // 2].copy())
-
 
 
 # Autocorrelation
@@ -69,20 +68,20 @@ def zero_cross(sig):
 
     return len(np.where(np.diff(np.sign(sig)))[0])
 
-def correlation(signal1, signal2):
-    """Compute the Pearson Correlation coefficient along the specified axes.
-
-    Parameters
-    ----------
-    signal1,signal2: ndarrays
-        inputs from which correlation is computed.
-
-    Returns
-    -------
-    pearson_coeff: int
-        measures the linear relationship between tow datasets.
-    """
-    return pearsonr(signal1, signal2)[0]
+# def correlation(signal1, signal2):
+#     """Compute the Pearson Correlation coefficient along the specified axes.
+#
+#     Parameters
+#     ----------
+#     signal1,signal2: ndarrays
+#         inputs from which correlation is computed.
+#
+#     Returns
+#     -------
+#     pearson_coeff: int
+#         measures the linear relationship between tow datasets.
+#     """
+#     return pearsonr(signal1, signal2)[0]
 
 def interq_range(sig):
     """Compute interquartile range along the specified axis.
@@ -130,8 +129,11 @@ def fundamental_frequency(s, FS):
     fs = fs[1:len(fs) // 2]
     f = f[1:len(f) // 2]
 
-    cond = int(np.where(f > 0.5)[0][0])
-    bp = int(bigPeaks(fs[cond:], 0))
+    try:
+        cond = int(np.where(f > 0.5)[0][0])
+    except:
+        cond = np.argmax(f)
+    bp = bigPeaks(fs[cond:], 0)
 
     if not bp:
         f0 = 0
@@ -185,7 +187,10 @@ def median_frequency(sig, FS):
 
     f, fs = plotfft(sig, FS)
     t = np.cumsum(fs)
-    ind_mag = np.where(t > t[-1] * 0.50)[0][0]
+    try:
+        ind_mag = np.where(t > t[-1] * 0.50)[0][0]
+    except:
+        ind_mag = np.argmax(t)
     f_median = f[ind_mag]
 
     return f_median
@@ -396,7 +401,26 @@ def calc_iqr(sig):
 
 
 # Mean Absolute Deviation
-def calc_mad(sig):
+def calc_meanad(sig):
+     """Compute mean absolute deviation along the specified axes.
+
+    Parameters
+    ----------
+    input: ndarray
+        input from which mean absolute deviation is computed.
+
+    Returns
+    -------
+    mad: int
+       mean absolute deviation result.
+    """
+     m = np.mean(sig)
+     diff = [abs(x-m) for x in sig]
+
+     return np.mean(diff)
+
+# Median Absolute Deviation
+def calc_medad(sig):
      """Compute mean absolute deviation along the specified axes.
 
     Parameters
@@ -412,10 +436,10 @@ def calc_mad(sig):
      m = np.median(sig)
      diff = [abs(x-m) for x in sig]
 
-     return np.mean(diff)
+     return np.median(diff)
 
 
-def calc_madiff(sig):
+def calc_meanadiff(sig):
     """Compute mean absolute differences along the specified axes.
 
    Parameters
@@ -430,6 +454,24 @@ def calc_madiff(sig):
    """
 
     return np.mean(abs(np.diff(sig)))
+
+
+def calc_medadiff(sig):
+    """Compute median absolute differences along the specified axes.
+
+   Parameters
+   ----------
+   input: ndarray
+       input from which mean absolute deviation is computed.
+
+   Returns
+   -------
+   mad: int
+      mean absolute difference result.
+   """
+
+    return np.median(abs(np.diff(sig)))
+
 
 def calc_sadiff(sig):
     """Compute sum of absolute differences along the specified axes.
@@ -447,7 +489,8 @@ def calc_sadiff(sig):
 
     return np.sum(abs(np.diff(sig)))
 
-def calc_mdiff(sig):
+
+def calc_meandiff(sig):
     """Compute mean of differences along the specified axes.
 
    Parameters
@@ -462,6 +505,24 @@ def calc_mdiff(sig):
    """
 
     return np.mean(np.diff(sig))
+
+
+def calc_meddiff(sig):
+    """Compute mean of differences along the specified axes.
+
+   Parameters
+   ----------
+   input: ndarray
+       input from which mean absolute deviation is computed.
+
+   Returns
+   -------
+   mad: int
+      mean absolute difference result.
+   """
+
+    return np.median(np.diff(sig))
+
 
 # Root Mean Square
 def rms(sig):

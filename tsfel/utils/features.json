@@ -134,7 +134,16 @@
             "use": "no",
             "Complexity": "Unknown",
             "imports": "from TSFEL import *",
-            "function": "calc_mad",
+            "function": "calc_medad",
+            "source": "Python 2.7, Numpy Library",
+            "reference": "Python 2.7, Numpy Library"
+        },
+        "Mean absolute deviation": {
+            "description": "Computes the mean absolute deviation for the provided sequence of values, a more robust estimation than the variance.",
+            "use": "no",
+            "Complexity": "Unknown",
+            "imports": "from TSFEL import *",
+            "function": "calc_meanad",
             "source": "Python 2.7, Numpy Library",
             "reference": "Python 2.7, Numpy Library"
         },
@@ -143,7 +152,16 @@
             "use": "no",
             "Complexity": "Unknown",
             "imports": "from TSFEL import *",
-            "function": "calc_madiff",
+            "function": "calc_meanadiff",
+            "source": "Python 2.7, Numpy Library",
+            "reference": "Python 2.7, Numpy Library"
+        },
+        "Median absolute diff": {
+            "description": "Computes the median of the absolute differences between two consequent values.",
+            "use": "no",
+            "Complexity": "Unknown",
+            "imports": "from TSFEL import *",
+            "function": "calc_medadiff",
             "source": "Python 2.7, Numpy Library",
             "reference": "Python 2.7, Numpy Library"
         },
@@ -161,7 +179,16 @@
             "use": "no",
             "Complexity": "Unknown",
             "imports": "from TSFEL import *",
-            "function": "calc_mdiff",
+            "function": "calc_meandiff",
+            "source": "Python 2.7, Numpy Library",
+            "reference": "Python 2.7, Numpy Library"
+        },
+        "Median diff": {
+            "description": "Computes the median of the differences between two consequent values.",
+            "use": "no",
+            "Complexity": "Unknown",
+            "imports": "from TSFEL import *",
+            "function": "calc_meddiff",
             "source": "Python 2.7, Numpy Library",
             "reference": "Python 2.7, Numpy Library"
         },

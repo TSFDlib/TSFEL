@@ -50,7 +50,7 @@ def find_best_slclassifier(features, labels, X_train, X_test, y_train, y_test):
         y_test_predict = c.predict(X_test)
 
         # Get the classification accuracy
-        accuracy = accuracy_score(y_test, y_test_predict)
+        accuracy = accuracy_score(y_test, y_test_predict)*100
         print("Accuracy: " + str(accuracy) + '%')
         print('-----------------------------------------')
         if np.mean([scores.mean(), accuracy]) > best:
