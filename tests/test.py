@@ -135,6 +135,42 @@ def test_int_range():
     np.testing.assert_almost_equal(interq_range(noiseWave), 1.4277110228590328, decimal=5)
 
 
+
+def test_calc_meanad():
+    np.testing.assert_equal(calc_meanad(const0), 0.0)
+    np.testing.assert_equal(calc_meanad(const1), 0.0)
+    np.testing.assert_equal(calc_meanad(constNeg), 0.0)
+    np.testing.assert_equal(calc_meanad(constF), 0.0)
+    np.testing.assert_equal(calc_meanad(lin), 5.0)
+    np.testing.assert_almost_equal(calc_meanad(lin0), 5.263157894736842, decimal=5)
+    np.testing.assert_almost_equal(calc_meanad(wave), 0.6365674116287159, decimal=5)
+    np.testing.assert_almost_equal(calc_meanad(noiseWave), 0.6392749078483896, decimal=5)
+    np.testing.assert_almost_equal(calc_meanad(offsetWave), 0.6365674116287157, decimal=5)
+
+
+def test_calc_medad():
+    np.testing.assert_equal(calc_medad(const0), 0.0)
+    np.testing.assert_equal(calc_medad(const1), 0.0)
+    np.testing.assert_equal(calc_medad(constNeg), 0.0)
+    np.testing.assert_equal(calc_medad(constF), 0.0)
+    np.testing.assert_equal(calc_medad(lin), 5.0)
+    np.testing.assert_almost_equal(calc_medad(lin0), 5.2631578947368425, decimal=5)
+    np.testing.assert_almost_equal(calc_medad(wave), 0.7071067811865475, decimal=5)
+    np.testing.assert_almost_equal(calc_medad(offsetWave), 0.7071067811865475, decimal=5)
+    np.testing.assert_almost_equal(calc_medad(noiseWave), 0.7068117164205888, decimal=5)
+
+def test_rms():
+    np.testing.assert_equal(rms(const0), 0.0)
+    np.testing.assert_equal(rms(const1), 1.0)
+    np.testing.assert_equal(rms(constNeg), 1.0)
+    np.testing.assert_equal(rms(constF), 2.5)
+    np.testing.assert_equal(rms(lin), 11.113055385446435)
+    np.testing.assert_almost_equal(rms(lin0), 6.06976978666884, decimal=5)
+    np.testing.assert_almost_equal(rms(wave), 0.7071067811865476, decimal=5)
+    np.testing.assert_almost_equal(rms(offsetWave), 2.1213203435596424, decimal=5)
+    np.testing.assert_almost_equal(rms(noiseWave), 0.7128245483240299, decimal=5)
+
+
 #### TEMPORAL FEATURES ####
 def test_minpeaks():
     np.testing.assert_equal(minpeaks(const0), 0.0)
@@ -170,30 +206,6 @@ def test_distance():
     np.testing.assert_almost_equal(distance(wave), 999.2461809866238, decimal=5)
     np.testing.assert_almost_equal(distance(offsetWave), 999.2461809866238, decimal=5)
     np.testing.assert_almost_equal(distance(noiseWave), 1007.8711901383033, decimal=5)
-
-
-def test_calc_meanad():
-    np.testing.assert_equal(calc_meanad(const0), 0.0)
-    np.testing.assert_equal(calc_meanad(const1), 0.0)
-    np.testing.assert_equal(calc_meanad(constNeg), 0.0)
-    np.testing.assert_equal(calc_meanad(constF), 0.0)
-    np.testing.assert_equal(calc_meanad(lin), 5.0)
-    np.testing.assert_almost_equal(calc_meanad(lin0), 5.263157894736842, decimal=5)
-    np.testing.assert_almost_equal(calc_meanad(wave), 0.6365674116287159, decimal=5)
-    np.testing.assert_almost_equal(calc_meanad(noiseWave), 0.6392749078483896, decimal=5)
-    np.testing.assert_almost_equal(calc_meanad(offsetWave), 0.6365674116287157, decimal=5)
-
-
-def test_calc_medad():
-    np.testing.assert_equal(calc_medad(const0), 0.0)
-    np.testing.assert_equal(calc_medad(const1), 0.0)
-    np.testing.assert_equal(calc_medad(constNeg), 0.0)
-    np.testing.assert_equal(calc_medad(constF), 0.0)
-    np.testing.assert_equal(calc_medad(lin), 5.0)
-    np.testing.assert_almost_equal(calc_medad(lin0), 5.2631578947368425, decimal=5)
-    np.testing.assert_almost_equal(calc_medad(wave), 0.7071067811865475, decimal=5)
-    np.testing.assert_almost_equal(calc_medad(offsetWave), 0.7071067811865475, decimal=5)
-    np.testing.assert_almost_equal(calc_medad(noiseWave), 0.7068117164205888, decimal=5)
 
 
 def test_calc_meandiff():
@@ -254,18 +266,6 @@ def test_calc_sadiff():
     np.testing.assert_almost_equal(calc_sadiff(wave), 19.968589240921872, decimal=5)
     np.testing.assert_almost_equal(calc_sadiff(offsetWave), 19.968589240921872, decimal=5)
     np.testing.assert_almost_equal(calc_sadiff(noiseWave), 106.89552650258346, decimal=5)
-
-
-def test_rms():
-    np.testing.assert_equal(rms(const0), 0.0)
-    np.testing.assert_equal(rms(const1), 1.0)
-    np.testing.assert_equal(rms(constNeg), 1.0)
-    np.testing.assert_equal(rms(constF), 2.5)
-    np.testing.assert_equal(rms(lin), 11.113055385446435)
-    np.testing.assert_almost_equal(rms(lin0), 6.06976978666884, decimal=5)
-    np.testing.assert_almost_equal(rms(wave), 0.7071067811865476, decimal=5)
-    np.testing.assert_almost_equal(rms(offsetWave), 2.1213203435596424, decimal=5)
-    np.testing.assert_almost_equal(rms(noiseWave), 0.7128245483240299, decimal=5)
 
 
 def test_zeroCross():

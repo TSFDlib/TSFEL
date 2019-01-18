@@ -82,6 +82,42 @@
             "function": "std",
             "source": "Python 2.7, Numpy Library",
             "reference": "Python 2.7, Numpy Library"
+        },
+        "Root mean square": {
+            "description": "The square root of the arithmetic mean (average) of the squares of the original values.",
+            "use": "no",
+            "Complexity": "Log",
+            "imports": "from TSFEL import *",
+            "function": "rms",
+            "source": "Python 2.7, Numpy Library",
+            "reference": "Python 2.7, Numpy Library"
+        },
+        "Interquartile range": {
+            "description": "Computes the interquartile range for the provided sequence of values, a more robust estimation than the variance.",
+            "use": "no",
+            "Complexity": "Log",
+            "imports": "from TSFEL import *",
+            "function": "calc_iqr",
+            "source": "Python 2.7, Numpy Library",
+            "reference": "Python 2.7, Numpy Library"
+        },
+		"Median absolute deviation": {
+            "description": "Computes the median absolute deviation for the provided sequence of values, a more robust estimation than the variance.",
+            "use": "no",
+            "Complexity": "Unknown",
+            "imports": "from TSFEL import *",
+            "function": "calc_medad",
+            "source": "Python 2.7, Numpy Library",
+            "reference": "Python 2.7, Numpy Library"
+        },
+        "Mean absolute deviation": {
+            "description": "Computes the mean absolute deviation for the provided sequence of values, a more robust estimation than the variance.",
+            "use": "no",
+            "Complexity": "Unknown",
+            "imports": "from TSFEL import *",
+            "function": "calc_meanad",
+            "source": "Python 2.7, Numpy Library",
+            "reference": "Python 2.7, Numpy Library"
         }
     },
     "Temporal": {
@@ -121,42 +157,6 @@
             "parameters": "FS",
             "source": "Python 2.7, Scipy Library",
             "reference": "G. Peeters, “A large set of audio features for sound description (similarity and classification) in the cuidado project”, 2004."
-        },
-        "Root mean square": {
-            "description": "The square root of the arithmetic mean (average) of the squares of the original values.",
-            "use": "no",
-            "Complexity": "Log",
-            "imports": "from TSFEL import *",
-            "function": "rms",
-            "source": "Python 2.7, Numpy Library",
-            "reference": "Python 2.7, Numpy Library"
-        },
-        "Interquartile range": {
-            "description": "Computes the interquartile range for the provided sequence of values, a more robust estimation than the variance.",
-            "use": "no",
-            "Complexity": "Log",
-            "imports": "from TSFEL import *",
-            "function": "calc_iqr",
-            "source": "Python 2.7, Numpy Library",
-            "reference": "Python 2.7, Numpy Library"
-        },
-		"Median absolute deviation": {
-            "description": "Computes the median absolute deviation for the provided sequence of values, a more robust estimation than the variance.",
-            "use": "no",
-            "Complexity": "Unknown",
-            "imports": "from TSFEL import *",
-            "function": "calc_medad",
-            "source": "Python 2.7, Numpy Library",
-            "reference": "Python 2.7, Numpy Library"
-        },
-        "Mean absolute deviation": {
-            "description": "Computes the mean absolute deviation for the provided sequence of values, a more robust estimation than the variance.",
-            "use": "no",
-            "Complexity": "Unknown",
-            "imports": "from TSFEL import *",
-            "function": "calc_meanad",
-            "source": "Python 2.7, Numpy Library",
-            "reference": "Python 2.7, Numpy Library"
         },
         "Mean absolute diff": {
             "description": "Computes the mean of the absolute differences between two consequent values.",
