@@ -4,22 +4,34 @@ import numpy as np
 from TSFEL.tsfel.utils.read_json import feat_extract
 
 def extract_features(sig, label, cfg, segment=True, window_size=5):
+    """ Performs a forward feature selection.
+    Parameters
+    ----------
+    X_train: array-like
+      train set features
+    X_test: array-like
+      test set features
+    y_train: array-like
+      train set labels
+    y_test: array-like
+      test set labels
+    y_test: array-like
+      test set labels
+    features_descrition: list of strings
+      list with extracted features names
+    classifier: object
+      classifier object
+    Returns
+    -------
+    signal distance: if the signal was straightened distance
+    """
     feat_val = None
     labels = None
-    features = []
-    row_idx = []
     print("*** Feature extraction started ***")
-
-    #header = np.array(pd.read_csv('TSFEL/tests/input_signal/Signal.txt', delimiter=',', header=None))[0, 1:]
     if segment:
         sig = [sig[i:i + window_size] for i in range(0, len(sig), window_size)]
     for wind_idx, wind_sig in enumerate(sig):
-        if len(sig.shape) >= 3:
-            for i in range(sig.shape[1]):
-                _row_idx, labels = feat_extract(cfg, wind_sig[i], label)
-                row_idx.append(_row_idx)
-        else:
-            row_idx, labels = feat_extract(cfg, wind_sig, label)
+        row_idx, labels = feat_extract(cfg, wind_sig, label)
         if wind_idx == 0:
             feat_val = row_idx
         else:

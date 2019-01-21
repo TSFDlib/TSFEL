@@ -13,17 +13,30 @@ from sklearn.metrics import accuracy_score
 
 
 def find_best_slclassifier(features, labels, X_train, X_test, y_train, y_test):
-    """
-    This function performs the classification of the given features using several classifiers. From the obtained results
+    """ This function performs the classification of the given features using several classifiers. From the obtained results
     the classifier which best fits the data and gives the best result is chosen and the respective confusion matrix is
     showed.
-    :param  features: (array)
-            features
-    :param  labels: (array)
-            features respective labels
-    :param  classes: (str list)
-            names of the existing classes
+    Parameters
+    ----------
+    X_train: array-like
+      train set features
+    X_test: array-like
+      test set features
+    y_train: array-like
+      train set labels
+    y_test: array-like
+      test set labels
+    y_test: array-like
+      test set labels
+    features: array-like
+      set of features
+    labels: array-like
+      features class labels
+    Returns
+    -------
+    c: best classifier
     """
+
     # Classifiers
     names = ["Nearest Neighbors", "Decision Tree", "Random Forest", "SVM", "AdaBoost", "Naive Bayes", "QDA"]
     classifiers = [

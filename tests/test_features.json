@@ -6,7 +6,7 @@
             "cost": "10",
             "imports": "from TSFEL import *",
             "function": "hist",
-            "free parameters":{"nbins": 10,  "r": 1},
+            "free parameters":{"nbins": [10], "r": [1]},
             "number of features": 3,
             "source": "Python 2.7, Numpy Library",
             "reference": "Python 2.7, Numpy Library"

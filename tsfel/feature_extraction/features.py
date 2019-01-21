@@ -1,47 +1,24 @@
 # -*- coding: utf-8 -*-
 #Imports
-from scipy.stats.stats import pearsonr
 from scipy.stats import kurtosis, skew
-from novainstrumentation.peaks import bigPeaks
 import novainstrumentation as ni
-#from novainstrumentation.tools import plotfft
 import numpy as np
 from scipy import signal
 # ####################################  TEMPORAL DOMAIN  ############################################################# #
 ########################################################################################################################
 def distance(sig):
-    """
-    Calculates the total distance traveled by the signal,
+    """ Calculates the total distance traveled by the signal,
     using the hipotenusa between 2 datapoints
-    :param sig: The signal
-    :return: The signal distance
-    """
-    df_sig = np.diff(sig)
-    return np.sum([np.sqrt(1+df**2) for df in df_sig])
-
-def plotfft(s, fmax):
-    """ This functions computes the fft of a signal, returning the frequency
-    and their magnitude values.
     Parameters
     ----------
     s: array-like
       the input signal.
-    fmax: int
-      the sampling frequency.
-    doplot: boolean
-      a variable to indicate whether the plot is done or not.
     Returns
     -------
-    f: array-like
-      the frequency values (xx axis)
-    fs: array-like
-      the amplitude of the frequency values (yy axis)
+    signal distance: if the signal was straightened distance
     """
-
-    fs = abs(np.fft.fft(s))
-    f = np.linspace(0, fmax // 2, len(s) // 2)
-    return (f[1:len(s) // 2].copy(), fs[1:len(s) // 2].copy())
-
+    df_sig = np.diff(sig)
+    return np.sum([np.sqrt(1+df**2) for df in df_sig])
 
 # Autocorrelation
 def autocorr(sig):
@@ -77,62 +54,218 @@ def zero_cross(sig):
 
     return len(np.where(np.diff(np.sign(sig)))[0])
 
-# def correlation(signal1, signal2):
-#     """Compute the Pearson Correlation coefficient along the specified axes.
-#
-#     Parameters
-#     ----------
-#     signal1,signal2: ndarrays
-#         inputs from which correlation is computed.
-#
-#     Returns
-#     -------
-#     pearson_coeff: int
-#         measures the linear relationship between tow datasets.
-#     """
-#     return pearsonr(signal1, signal2)[0]
+def calc_meanadiff(sig):
+    """Compute mean absolute differences along the specified axes.
 
-def interq_range(sig):
-    """Compute interquartile range along the specified axis.
+   Parameters
+   ----------
+   input: ndarray
+       input from which mean absolute deviation is computed.
 
-        Parameters
-        ----------
-        sig: ndarray
-            input from which interquartile range is computed.
+   Returns
+   -------
+   mad: int
+      mean absolute difference result.
+   """
 
-        Returns
-        -------
-        corr: float
-            Interquartile range of 1-dimensional sequence.
-        """
-    #ny.percentile(sig, 75) - ny.percentile(sig, 25)
-    return np.percentile(sig, 75) - np.percentile(sig, 25)
+    return np.mean(abs(np.diff(sig)))
 
 
+def calc_medadiff(sig):
+    """Compute median absolute differences along the specified axes.
+
+   Parameters
+   ----------
+   input: ndarray
+       input from which mean absolute deviation is computed.
+
+   Returns
+   -------
+   mad: int
+      mean absolute difference result.
+   """
+
+    return np.median(abs(np.diff(sig)))
+
+
+def calc_sadiff(sig):
+    """Compute sum of absolute differences along the specified axes.
+
+   Parameters
+   ----------
+   input: ndarray
+       input from which sum absolute diff is computed.
+
+   Returns
+   -------
+   mad: int
+      sum absolute difference result.
+   """
+
+    return np.sum(abs(np.diff(sig)))
+
+
+def calc_meandiff(sig):
+    """Compute mean of differences along the specified axes.
+
+   Parameters
+   ----------
+   input: ndarray
+       input from which mean absolute deviation is computed.
+
+   Returns
+   -------
+   mad: int
+      mean absolute difference result.
+   """
+
+    return np.mean(np.diff(sig))
+
+
+def calc_meddiff(sig):
+    """Compute mean of differences along the specified axes.
+
+   Parameters
+   ----------
+   input: ndarray
+       input from which mean absolute deviation is computed.
+
+   Returns
+   -------
+   mad: int
+      mean absolute difference result.
+   """
+
+    return np.median(np.diff(sig))
+
+
+#create time
+def compute_time(sign, FS):
+    """Creates the signal correspondent time array.
+    """
+    time = range(len(sign))
+    time = [float(x)/FS for x in time]
+    return time
+
+
+def signal_energy(sign, time):
+    """Computes the energy of the signal. For that, first is made the segmentation of the signal in 10 windows
+    and after it's considered that the energy of the signal is the sum of all calculated points in each window.
+    Parameters
+    ----------
+    sign: ndarray
+        input from which max frequency is computed.
+    Returns
+    -------
+    energy: float list
+       signal energy.
+    time_energy: float list
+        signal time energy
+    """
+
+    window_len = len(sign)
+
+    # window for energy calculation
+    if window_len < 10:
+        window = 1
+    else:
+        window = window_len//10 # each window of the total signal will have 10 windows
+
+    energy = np.zeros(window_len//window)
+    time_energy = np.zeros(window_len//window)
+
+    i = 0
+    for a in range(0, len(sign) - window, window):
+        energy[i] = np.sum(np.array(sign[a:a+window])**2)
+        interval_time = time[int(a+(window//2))]
+        time_energy[i] = interval_time
+        i += 1
+
+    return list(energy), list(time_energy)
+
+
+# Temporal Centroid
+def centroid(sign, FS):
+    """Computes the centroid along the time axis.
+    ----------
+    sign: ndarray
+        input from which max frequency is computed.
+    fs: int
+        signal sampling frequency.
+    Returns
+    -------
+    centroid: float
+        temporal centroid
+    """
+
+    time = compute_time(sign, FS)
+
+    energy, time_energy=signal_energy(sign, time)
+
+    total_energy = np.dot(np.array(time_energy),np.array(energy))
+    energy_sum = np.sum(energy)
+
+    if energy_sum == 0 or total_energy == 0:
+        centroid = 0
+    else:
+        centroid = total_energy / energy_sum
+    return centroid
+
+
+# Total Energy
+def total_energy(sign, FS):
+    """
+    Compute the acc_total power, using the given windowSize and value time in samples
+
+    """
+    time = compute_time(sign, FS)
+
+    return np.sum(np.array(sign)**2)/(time[-1]-time[0])
 
 ########################################################################################################################
 # ############################################ SPECTRAL DOMAIN ####################################################### #
 ########################################################################################################################
-def _bigPeaks(s, th, min_peak_distance=5, peak_return_percentage=0.1):
-    p = ni.peaks(s, th)
-    pp = []
-    if len(p) == 0:
-        pp = []
-    else:
-        p = ni.clean_near_peaks(s, p, min_peak_distance)
+def plotfft(s, fmax):
+    """ This functions computes the fft of a signal, returning the frequency
+    and their magnitude values.
+    Parameters
+    ----------
+    s: array-like
+      the input signal.
+    fmax: int
+      the sampling frequency.
+    doplot: boolean
+      a variable to indicate whether the plot is done or not.
+    Returns
+    -------
+    f: array-like
+      the frequency values (xx axis)
+    fs: array-like
+      the amplitude of the frequency values (yy axis)
+    """
 
-        if len(p) != 0:
+    fs = abs(np.fft.fft(s))
+    f = np.linspace(0, fmax // 2, len(s) // 2)
+    return (f[1:len(s) // 2].copy(), fs[1:len(s) // 2].copy())
+
+def _bigPeaks(s, th, min_peak_distance=5, peak_return_percentage=0.1):
+    pp = []
+    if not list(s):
+        return pp
+    else:
+        p = ni.peaks(s, th)
+        if not list(p):
+            return pp
+        else:
+            p = ni.clean_near_peaks(s, p, min_peak_distance)
             ars = np.argsort(s[p])
             pp = p[ars]
 
             num_peaks_to_return = int(np.ceil(len(p) * peak_return_percentage))
 
             pp = pp[-num_peaks_to_return:]
-        else:
-            pp == []
 
-
-    return pp
+            return pp
 
 
 # Compute Fundamental Frequency
@@ -161,7 +294,8 @@ def fundamental_frequency(s, FS):
     try:
         cond = np.where(f > 0.5)[0][0]
     except:
-        cond = np.argmin(f)
+        cond = 0
+
     bp = _bigPeaks(fs[cond:], 0)
     if not list(bp):
         f0 = 0
@@ -267,9 +401,9 @@ def max_power_spectrum(sig, FS):
     """
 
     if np.std(sig) == 0:
-        return float(max(signal.welch(sig, int(FS))[1]))
+        return float(max(signal.welch(sig, int(FS), nperseg=len(sig))[1]))
     else:
-        return float(max(signal.welch(sig/np.std(sig), int(FS))[1]))
+        return float(max(signal.welch(sig/np.std(sig), int(FS), nperseg=len(sig))[1]))
 
 
 def power_bandwidth(sig, FS, samples):
@@ -290,7 +424,7 @@ def power_bandwidth(sig, FS, samples):
     """
     bd = []
     bdd = []
-    freq, power = signal.welch(sig/np.std(sig), FS)
+    freq, power = signal.welch(sig/np.std(sig), FS, nperseg=len(sig))
 
     for i in range(len(power)):
         bd += [float(power[i])]
@@ -340,6 +474,22 @@ def trfbank(fs, nfft, lowfreq, linsc, logsc, nlinfilt, nlogfilt):
 ########################################################################################################################
 ####################################### STATISTICAL DOMAIN #############################################################
 ########################################################################################################################
+def interq_range(sig):
+    """Compute interquartile range along the specified axis.
+
+        Parameters
+        ----------
+        sig: ndarray
+            input from which interquartile range is computed.
+
+        Returns
+        -------
+        corr: float
+            Interquartile range of 1-dimensional sequence.
+        """
+    #ny.percentile(sig, 75) - ny.percentile(sig, 25)
+    return np.percentile(sig, 75) - np.percentile(sig, 25)
+
 
 # Kurtosis
 def calc_kurtosis(sig):
@@ -466,92 +616,6 @@ def calc_medad(sig):
 
      return np.median(diff)
 
-
-def calc_meanadiff(sig):
-    """Compute mean absolute differences along the specified axes.
-
-   Parameters
-   ----------
-   input: ndarray
-       input from which mean absolute deviation is computed.
-
-   Returns
-   -------
-   mad: int
-      mean absolute difference result.
-   """
-
-    return np.mean(abs(np.diff(sig)))
-
-
-def calc_medadiff(sig):
-    """Compute median absolute differences along the specified axes.
-
-   Parameters
-   ----------
-   input: ndarray
-       input from which mean absolute deviation is computed.
-
-   Returns
-   -------
-   mad: int
-      mean absolute difference result.
-   """
-
-    return np.median(abs(np.diff(sig)))
-
-
-def calc_sadiff(sig):
-    """Compute sum of absolute differences along the specified axes.
-
-   Parameters
-   ----------
-   input: ndarray
-       input from which sum absolute diff is computed.
-
-   Returns
-   -------
-   mad: int
-      sum absolute difference result.
-   """
-
-    return np.sum(abs(np.diff(sig)))
-
-
-def calc_meandiff(sig):
-    """Compute mean of differences along the specified axes.
-
-   Parameters
-   ----------
-   input: ndarray
-       input from which mean absolute deviation is computed.
-
-   Returns
-   -------
-   mad: int
-      mean absolute difference result.
-   """
-
-    return np.mean(np.diff(sig))
-
-
-def calc_meddiff(sig):
-    """Compute mean of differences along the specified axes.
-
-   Parameters
-   ----------
-   input: ndarray
-       input from which mean absolute deviation is computed.
-
-   Returns
-   -------
-   mad: int
-      mean absolute difference result.
-   """
-
-    return np.median(np.diff(sig))
-
-
 # Root Mean Square
 def rms(sig):
      """Compute root mean square along the specified axes.
@@ -634,96 +698,23 @@ def maxpeaks(sig):
     diff_sig = np.diff(sig)
 
     return np.sum([1 for nd in range(len(diff_sig[:-1])) if (diff_sig[nd+1]<0 and diff_sig[nd]>0)])
-########################################################################################################################
-# ######################################### CUIDADO FEATURES ######################################################### #
-########################################################################################################################
-
-#create time
-def compute_time(sign, FS):
-    """Creates the signal correspondent time array.
-    """
-    time = range(len(sign))
-    time = [float(x)/FS for x in time]
-    return time
-
-
-def signal_energy(sign, time):
-    """Computes the energy of the signal. For that, first is made the segmentation of the signal in 10 windows
-    and after it's considered that the energy of the signal is the sum of all calculated points in each window.
-    Parameters
-    ----------
-    sign: ndarray
-        input from which max frequency is computed.
-    Returns
-    -------
-    energy: float list
-       signal energy.
-    time_energy: float list
-        signal time energy
-    """
-
-    window_len = len(sign)
-
-    # window for energy calculation
-    if window_len < 10:
-        window = 1
-    else:
-        window = window_len//10 # each window of the total signal will have 10 windows
-
-    energy = np.zeros(window_len//window)
-    time_energy = np.zeros(window_len//window)
-
-    i = 0
-    for a in range(0, len(sign) - window, window):
-        energy[i] = np.sum(np.array(sign[a:a+window])**2)
-        interval_time = time[int(a+(window//2))]
-        time_energy[i] = interval_time
-        i += 1
-
-    return list(energy), list(time_energy)
-
-
-# Temporal Centroid
-def centroid(sign, FS):
-    """Computes the centroid along the time axis.
-    ----------
-    sign: ndarray
-        input from which max frequency is computed.
-    fs: int
-        signal sampling frequency.
-    Returns
-    -------
-    centroid: float
-        temporal centroid
-    """
-
-    time = compute_time(sign, FS)
-
-    energy, time_energy=signal_energy(sign, time)
-
-    total_energy = np.dot(np.array(time_energy),np.array(energy))
-    energy_sum = np.sum(energy)
-
-    if (energy_sum == 0 or total_energy == 0):
-        centroid = 0
-    else:
-        centroid = total_energy / energy_sum
-    return centroid
-
-
-# Total Energy
-def total_energy(sign, FS):
-    """
-    Compute the acc_total power, using the given windowSize and value time in samples
-
-    """
-    time = compute_time(sign, FS)
-
-    return np.sum(np.array(sign)**2)/(time[-1]-time[0])
 
 
 # Spectral Centroid
 def spectral_centroid(sign, fs): #center portion of the signal
+    """Barycenter of the spectrum.
+
+    Parameters
+    ----------
+    sign: ndarray
+        signal from which spectral slope is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+    spread: float
+        centroid
+    """
     f, ff = plotfft(sign, fs)
     if not np.sum(ff):
         return 0
@@ -733,6 +724,19 @@ def spectral_centroid(sign, fs): #center portion of the signal
 
 # Spectral Spread
 def spectral_spread(sign, fs):
+    """Measures the spread of the spectrum around its mean value.
+
+    Parameters
+    ----------
+    sign: ndarray
+        signal from which spectral slope is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+    spread: float
+        spread
+    """
     f, ff = plotfft(sign, fs)
     spect_centr = spectral_centroid(sign, fs)
     if not np.sum(ff):
@@ -743,6 +747,19 @@ def spectral_spread(sign, fs):
 
 # Spectral Skewness
 def spectral_skewness(sign, fs):
+    """Measures the asymmetry of a distribution around its mean value. Computed from the 3rd order moment.
+
+    Parameters
+    ----------
+    sign: ndarray
+        signal from which spectral slope is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+    skeness: float
+        skeness
+    """
     f, ff = plotfft(sign, fs)
     spect_centr = spectral_centroid(sign, fs)
     if not spectral_spread(sign, fs):
@@ -754,6 +771,19 @@ def spectral_skewness(sign, fs):
 
 # Spectral Kurtosis
 def spectral_kurtosis(sign, fs):
+    """Measures the flatness of a distribution around its mean value. Computed from the 4th order moment.
+
+    Parameters
+    ----------
+    sign: ndarray
+        signal from which spectral slope is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+    kurtosis: float
+        kurtosis
+    """
     f, ff = plotfft(sign, fs)
     if not spectral_spread(sign, fs):
         return 0
@@ -781,12 +811,29 @@ def spectral_slope(sign, fs):
         y-intercept
     """
     f, ff = plotfft(sign, fs)
-    return (len(f) * np.dot(f, ff) - np.sum(f) * np.sum(ff)) / (len(f) * np.dot(f, f) - np.sum(f) ** 2)
+    if not(list(f)):
+        return 0
+    else:
+        if not (len(f) * np.dot(f, f) - np.sum(f) ** 2):
+            return 0
+        else:
+            return (len(f) * np.dot(f, ff) - np.sum(f) * np.sum(ff)) / (len(f) * np.dot(f, f) - np.sum(f) ** 2)
 
 
 # Spectral Decrease
 def spectral_decrease(sign, fs):
+    """Represents the amount of decraesing of the spectra amplitude.
 
+    Parameters
+    ----------
+    sign: ndarray
+        signal from which spectral slope is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+        spectrak decrease
+    """
     f, ff = plotfft(sign, fs)
 
     k = len(ff)
@@ -801,8 +848,22 @@ def spectral_decrease(sign, fs):
         soma_den = 1 / np.sum(ff2)
         return soma_den * soma_num
 
-def spectral_roll_on(sign, fs):
 
+def spectral_roll_on(sign, fs):
+    """Compute the spectral roll-on of the signal, i.e., the frequency where 5% of the signal energy is contained
+    below of this value.
+
+    Parameters
+    ----------
+    sign: ndarray
+        signal from which spectral slope is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+    roll_off: float
+        spectral roll-on
+    """
     output = 0
     f, ff = plotfft(sign, fs)
     cum_ff = np.cumsum(ff)
@@ -843,7 +904,19 @@ def spectral_roll_off(sign, fs):
 
 
 def curve_distance(sign, fs):
+    """Euclidean distance of the signal's cumulative sum of the FFT elements to the respective linear regression.
 
+    Parameters
+    ----------
+    sign: ndarray
+        signal from which spectral slope is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+    curve distance: float
+        curve distance
+    """
     f, ff = plotfft(sign, fs)
     cum_ff = np.cumsum(ff)
     points_y = np.linspace(0, cum_ff[-1], len(cum_ff))
@@ -851,12 +924,20 @@ def curve_distance(sign, fs):
     return np.sum(points_y-cum_ff)
 
 
-# Temporal Variation of Spectrum
 def spect_variation(sign, fs):
-    '''
-    returns the temporal variation
-    '''
+    """Amount of variation of the spectrum along time. Computed from the normalized cross-correlation between two consecutive amplitude spectra.
 
+    Parameters
+    ----------
+    sign: ndarray
+        signal from which spectral slope is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+    variation: float
+
+    """
     f, ff = plotfft(sign, fs)
     energy, freq = signal_energy(ff, f)
 
@@ -878,9 +959,20 @@ def spect_variation(sign, fs):
 
 # Variance
 def variance(sign, FS):
-    '''
-    searches and returns the signal variance
-    '''
+    """ Measures how far the numbers are spread out.
+
+    Parameters
+    ----------
+    sig: ndarray
+        input from histogram is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+    num_p: float
+        signal variance
+
+    """
     time = compute_time(sign, FS)
     soma_den = 0
     soma_num = 0
@@ -891,16 +983,22 @@ def variance(sign, FS):
     return soma_num/soma_den
 
 
-def covariance(sign1, sign2):
-    '''
-    searches and returns the signal covariance
-    '''
-    return np.cov(sign1, sign2)[0][1]
-
-
 #Deviation
 def deviation(sign, FS):
+    """Temporal deviation.
 
+    Parameters
+    ----------
+    sig: ndarray
+        input from histogram is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+    deviation: float
+        temporal deviation
+
+    """
     time = compute_time(sign, FS)
     soma_den = 0
     soma_num = 0
@@ -912,7 +1010,20 @@ def deviation(sign, FS):
 
 
 def linear_regression(sign):
+    """fits a liner equation to the observed data
 
+    Parameters
+    ----------
+    sig: ndarray
+        input from histogram is computed.
+    fs: int
+        sampling frequency of the signal
+    Returns
+    -------
+    num_p: float
+        slope
+
+    """
     t = np.linspace(0, 5, len(sign))
 
     return np.polyfit(t, sign, 1)[0]
@@ -925,8 +1036,8 @@ def spectral_maxpeaks(sign, FS):
     ----------
     sig: ndarray
         input from histogram is computed.
-    type: string
-        can be 'all', 'max', and 'min', and expresses which peaks are going to be accounted
+    fs: int
+        sampling frequency of the signal
     Returns
     -------
     num_p: float
@@ -937,3 +1048,4 @@ def spectral_maxpeaks(sign, FS):
     diff_sig = np.diff(ff)
 
     return np.sum([1 for nd in range(len(diff_sig[:-1])) if (diff_sig[nd+1]<0 and diff_sig[nd]>0)])
+

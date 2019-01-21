@@ -14,24 +14,27 @@ from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from sklearn.model_selection import cross_val_score
 import numpy as np
 
-def hyperparam_tunning(features, subj_lab, X_train, y_train):
-    """
-    This function performs the classification of the given features using several classifiers. From the obtained results
+def hyperparam_tunning(features, labels, X_train, y_train):
+    """ This function performs the classification of the given features using several classifiers. From the obtained results
     the classifier which best fits the data and gives the best result is chosen and the respective confusion matrix is
     showed.
-    :param  features: (array)
-            features
-    :param  labels: (array)
-            features respective labels
-    :param  classes: (str list)
-            names of the existing classes
+    Parameters
+    ----------
+    features: array-like
+      set of features
+    labels: array-like
+      features class labelsX_train: array-like
+      train set features
+    y_train: array-like
+      train set labels
+    Returns
+    -------
+    best_clf: best classifier
+    best_acc: best accuracy score
     """
-    # Split into train and test sets
-    # X_train, X_test, y_train, y_test = train_test_split(test_features, test_labels, test_size=0.3, random_state=42)
 
     # Classifiers
     print("USING GRID SEARCH")
-    acc = []
     names = ["Nearest Neighbors", "Decision Tree", "Random Forest", "SVM", "AdaBoost", "Naive Bayes", "QDA"]
     classifiers = [
         DecisionTreeClassifier(max_depth=5, min_samples_split=len(features) // 10),
@@ -42,11 +45,9 @@ def hyperparam_tunning(features, subj_lab, X_train, y_train):
         QuadraticDiscriminantAnalysis()
     ]
 
-    best = 0
+    best_acc = 0
     best_classifier = None
     best_clf = None
-    # train_size = len_annotated_set/len(labels)
-    # Split into train and test sets
     for n, c in zip(names, classifiers):
         counter = 0
         n_iter_search = 20
@@ -94,17 +95,17 @@ def hyperparam_tunning(features, subj_lab, X_train, y_train):
             grid.fit(X_train, y_train)
 
         # print grid.get_params()
-        scores = cross_val_score(grid, features, subj_lab, cv=5)
+        scores = cross_val_score(grid, features, labels, cv=5)
 
         print("Accuracy: " + str(np.mean(scores)) + '%')
         print(np.std(scores))
         print('-----------------------------------------')
-        if np.mean(scores) > best:
+        if np.mean(scores) > best_acc:
             best_classifier = n
-            best = np.mean(scores)
+            best_acc = np.mean(scores)
             best_clf = grid
 
     print('******** Best Classifier: ' + str(best_classifier) + ' ********')
 
     print(best_clf)
-    return best_clf, best
+    return best_clf, best_acc
