@@ -207,6 +207,7 @@ def one_extract(feat_dict, signal_window, FS = 100, iteration=None):
 
     #Read Free Parameters
     free_parameters = feat_dict['free parameters']
+
     #Execute imports
     exec(imports)
 
@@ -225,7 +226,7 @@ def one_extract(feat_dict, signal_window, FS = 100, iteration=None):
         if free_parameters != '' :
             for n, v in free_parameters.items():
                 #TODO: conversion may loose precision (str)
-                execf += ', ' + n + '=' + str(v[0])
+                execf += ', ' + str(n) + '=' + str(v[0])
 
         execf += ')'
 
@@ -239,7 +240,7 @@ def one_extract(feat_dict, signal_window, FS = 100, iteration=None):
             func_results += [eval_result[rr]]
 
         #Low g sum, for total acceleration
-        if func_total == 'hist_json' and signal_label=='tot':
+        if func_total == 'hist' and signal_label=='tot':
 
             nbins = dictionary['statistical']['histogram']['free parameters']['nbins'][0]
             factor= int(0.10*nbins)
