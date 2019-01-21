@@ -38,12 +38,11 @@ def find_best_slclassifier(features, labels, X_train, X_test, y_train, y_test):
     """
 
     # Classifiers
-    names = ["Nearest Neighbors", "Decision Tree", "Random Forest", "SVM", "AdaBoost", "Naive Bayes", "QDA"]
+    names = ["Nearest Neighbors", "Decision Tree", "Random Forest", "AdaBoost", "Naive Bayes", "QDA"]
     classifiers = [
         KNeighborsClassifier(5),
         DecisionTreeClassifier(max_depth=5, min_samples_split=len(features)//10),
         RandomForestClassifier(max_depth=5, n_estimators=10, max_features=2),
-        svm.SVC(),
         AdaBoostClassifier(),
         GaussianNB(),
         QuadraticDiscriminantAnalysis()]
