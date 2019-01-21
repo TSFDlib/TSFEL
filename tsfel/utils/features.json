@@ -1,17 +1,5 @@
 {
     "Statistical": {
-        "Histogram": {
-            "description": "The grouping of the data into bins, plotting the number of members in each bin against the bin number.",
-            "use": "yes",
-            "cost": "10",
-            "imports": "from TSFEL import *",
-            "function": "hist",
-            "free parameters":{"nbins": 10,  "r": 1},
-            "number of features": 3,
-            "source": "Python 2.7, Numpy Library",
-            "reference": "Python 2.7, Numpy Library",
-            "Complexity": "Unknown"
-},
         "Skewness": {
             "description": "Computes the skewness of a data set.",
             "use": "yes",
