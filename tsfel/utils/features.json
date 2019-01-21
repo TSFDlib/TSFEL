@@ -114,7 +114,7 @@
             "description": "Computes the length of the signal.",
             "use": "yes",
             "Complexity": "Unknown",
-			"imports": "",
+			"imports": "from TSFEL import ",
             "function": "distance",
             "source": "",
             "reference": ""
@@ -198,8 +198,8 @@
             "Complexity": "Log",
             "imports": "from TSFEL import *",
             "function": "zero_cross",
-            "source": "yesvaInstrumentation",
-            "reference": "yesvaInstrumentation"
+            "source": "novaInstrumentation",
+            "reference": "novaInstrumentation"
         },
 		"Autocorrelation": {
             "description": "Cross correlation of 1dimensional sequence.",
