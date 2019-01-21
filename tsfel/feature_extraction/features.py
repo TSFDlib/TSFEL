@@ -258,13 +258,15 @@ def _bigPeaks(s, th, min_peak_distance=5, peak_return_percentage=0.1):
             return pp
         else:
             p = ni.clean_near_peaks(s, p, min_peak_distance)
-            print(p)
-            ars = np.argsort(s[p])
-            pp = p[ars]
+            if not p:
+                return pp
+            else:
+                ars = np.argsort(s[p])
+                pp = p[ars]
 
-            num_peaks_to_return = int(np.ceil(len(p) * peak_return_percentage))
+                num_peaks_to_return = int(np.ceil(len(p) * peak_return_percentage))
 
-            pp = pp[-num_peaks_to_return:]
+                pp = pp[-num_peaks_to_return:]
 
             return pp
 
