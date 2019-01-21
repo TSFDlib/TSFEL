@@ -6,10 +6,11 @@
             "cost": "10",
             "imports": "from TSFEL import *",
             "function": "hist",
-            "free parameters":{"nbins": [10], "r": [1]},
+            "free parameters":{"nbins": 10,  "r": 1},
             "number of features": 3,
             "source": "Python 2.7, Numpy Library",
-            "reference": "Python 2.7, Numpy Library"
+            "reference": "Python 2.7, Numpy Library",
+            "Complexity": "Unknown"
 },
         "Skewness": {
             "description": "Computes the skewness of a data set.",
@@ -251,7 +252,8 @@
             "function": "fundamental_frequency",
 			"parameters":"FS",
             "source": "yesvaInstrumentation Library",
-            "reference": "yesvaInstrumentation Library"
+            "reference": "yesvaInstrumentation Library",
+            "Complexity": "Unknown"
         },
         "Total energy": {
             "description": "Computes the total energy of a data set.",
