@@ -61,9 +61,9 @@ def extract_sheet(gSheetName):
                     feat_dict = DICTIONARY[domain][feat]
                     param = ''
                     if feat_dict['free parameters']:
-                        param = str(feat_dict['free parameters']["nbins"], feat_dict['free parameters']["r"])
+                        param = str({"nbins": [10], 'r': [1]})
                     if feat_dict['parameters'] == 'FS':
-                        param = str({"fs":100})
+                        param = str({"fs": 100})
                     curve = feat_dict['Complexity']
                     curves_all = ['Linear','Log','Square','Nlog','Constant']
                     complexity = compute_complexity(feat, domain) if curve not in curves_all else 1 if curve in ['Constant','Log'] else 2 if curve == 'Linear' else 3 
