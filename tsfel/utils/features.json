@@ -228,12 +228,12 @@
             "cost": "10",
             "description": "The grouping of the data into bins, plotting the number of members in each bin against the bin number.",
             "free parameters": {
-                "nbins":
+                "nbins": [
                     10
-                ,
-                "r":
+                ],
+                "r": [
                     1
-                
+                ]
             },
             "function": "hist",
             "imports": "from TSFEL import *",
