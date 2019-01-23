@@ -87,7 +87,8 @@ def extract_sheet(gSheetName):
             if list_of_features[i] == 'Histogram':
                 val = sheet.cell(i + 5, 5).value
                 print(val)
-                print(feat_dict['free parameters']["nbins"])
+                print(ast.literal_eval(val)['nbins'])
+                print(ast.literal_eval(val)['r'])
                 DICTIONARY['Statistical'][list_of_features[i]]['parameters'] = str(val)
             DICTIONARY['Statistical'][list_of_features[i]]['use'] = 'yes'
 
