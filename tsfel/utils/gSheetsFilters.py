@@ -86,7 +86,7 @@ def extract_sheet(gSheetName):
         if use_or_not[i] == 'TRUE':
             if list_of_features[i] == 'Histogram':
                 val = sheet.cell(i + 5, 5).value
-                DICTIONARY['Statistical'][list_of_features[i]]['parameters'] = {'nbins': [ast.literal_eval(val)['nbins']], "r": [ast.literal_eval(val)['r']]}
+                DICTIONARY['Statistical'][list_of_features[i]]['parameters'] = str({'nbins': [ast.literal_eval(val)['nbins']], "r": [ast.literal_eval(val)['r']]})
             DICTIONARY['Statistical'][list_of_features[i]]['use'] = 'yes'
 
     for i in range(len_temp):
