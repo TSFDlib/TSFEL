@@ -38,10 +38,10 @@ def extract_sheet(gSheetName):
     confManager = client.open(gSheetName)
     sheet = confManager.sheet1
     metadata = confManager.fetch_sheet_metadata()
-    list_of_features = []
     list_of_features = sheet.col_values(2)[4:]
     filters = metadata['sheets'][sheet.id]['basicFilter']['criteria']
     list_filt_features = filter_features(DICTIONARY,filters)
+    print(list_filt_features)
 
     use_or_not = ['TRUE' if lf in list_filt_features else 'FALSE' for lf in list_of_features]
 
@@ -84,10 +84,12 @@ def extract_sheet(gSheetName):
 
     for i in range(len_stat):
         if use_or_not[i] == 'TRUE':
-            if list_of_features[i] == 'Histogram':
-                val = sheet.cell(i + 5, 5).value
-                DICTIONARY['Statistical'][list_of_features[i]]['free parameters'] = {'nbins': [ast.literal_eval(val)['nbins']], "r": [ast.literal_eval(val)['r']]}
             DICTIONARY['Statistical'][list_of_features[i]]['use'] = 'yes'
+        if list_of_features[i] == 'Histogram':
+            val = sheet.cell(i + 5, 5).value
+            DICTIONARY['Statistical'][list_of_features[i]]['free parameters'] = {
+                'nbins': [ast.literal_eval(val)['nbins']], "r": [ast.literal_eval(val)['r']]}
+
 
     for i in range(len_temp):
         if use_or_not[i+len_stat] == 'TRUE':
