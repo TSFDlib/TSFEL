@@ -41,7 +41,6 @@ def extract_sheet(gSheetName):
     list_of_features = sheet.col_values(2)[4:]
     filters = metadata['sheets'][sheet.id]['basicFilter']['criteria']
     list_filt_features = filter_features(DICTIONARY,filters)
-    print(list_filt_features)
 
     use_or_not = ['TRUE' if lf in list_filt_features else 'FALSE' for lf in list_of_features]
 
