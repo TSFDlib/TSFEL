@@ -105,7 +105,7 @@ def extract_sheet(gSheetName):
             else:
                 DICTIONARY['Spectral'][list_of_features[i+len_stat+len_temp]]['parameters'] = str(ast.literal_eval(val)['fs'])
                 DICTIONARY['Spectral'][list_of_features[i+len_stat+len_temp]]['use'] = 'yes'
-    
+    print(DICTIONARY['Statistical']['Histogram'])
     return DICTIONARY
 
 #extract_sheet()
