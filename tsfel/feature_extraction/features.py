@@ -657,6 +657,10 @@ def hist(sig, nbins, r):
         the bin_edges, 'len(hist)+1'
 
     """
+    
+    type(nbins)
+    type(r)
+    
 
     histsig, bin_edges = np.histogram(sig, bins=nbins[0], range=[-r[0], r[0]], density=True) #TODO:subsampling parameter
 
