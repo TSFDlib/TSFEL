@@ -134,7 +134,7 @@ def feat_extract(dictionary, signal_window, signal_label, FS = 100, iteration=No
                 #Low g sum, for total acceleration
                 if func_total[i] == 'hist' and signal_label=='tot':
 
-                    nbins = dictionary['statistical']['histogram']['free parameters']['nbins'][0]
+                    nbins = dictionary['statistical']['histogram']['free parameters']['nbins']
                     factor= int(0.10*nbins)
                     low = func_results[:factor]
                     low_g = sum(low)
@@ -242,7 +242,7 @@ def one_extract(feat_dict, signal_window, FS = 100, iteration=None):
         #Low g sum, for total acceleration
         if func_total == 'hist' and signal_label=='tot':
 
-            nbins = dictionary['statistical']['histogram']['free parameters']['nbins'][0]
+            nbins = dictionary['statistical']['histogram']['free parameters']['nbins']
             factor= int(0.10*nbins)
             low = func_results[:factor]
             low_g = sum(low)
