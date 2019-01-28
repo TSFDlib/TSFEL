@@ -2,8 +2,8 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import numpy as np
 import ast
-from tsfel.tsfel.utils.read_json import compute_dictionary
-from tsfel.tsfel.utils.eval import compute_complexity
+from TSFEL.tsfel.utils.read_json import compute_dictionary
+from TSFEL.tsfel.utils.eval import compute_complexity
 
 def filter_features(dic, filters):
     features_all = list(np.concatenate([list(dic[dk].keys()) for dk in sorted(dic.keys())]))
@@ -28,7 +28,7 @@ def filter_features(dic, filters):
     return features_filtered
 
 def extract_sheet(gSheetName):
-    FEATURES_JSON = 'tsfel/tsfel/utils/features.json'
+    FEATURES_JSON = 'TSFEL/tsfel/utils/features.json'
     DEFAULT = {'use': 'yes', 'metric': 'euclidean', 'free parameters': '', 'number of features': 1, 'parameters': ''}
     DICTIONARY = compute_dictionary(FEATURES_JSON, DEFAULT)
     scope = ['https://spreadsheets.google.com/feeds',
