@@ -1,11 +1,11 @@
 {
     "Spectral": {
         "Curve distance": {
-            "Complexity": "Unknown",
+            "Complexity": "Log",
             "description": "Computes the curve distance of a dataset.",
             "free parameters": "",
             "function": "curve_distance",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -14,12 +14,12 @@
             "use": "yes"
         },
         "Fundamental frequency": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "cost": "100",
             "description": "Computes the fundamental frequency along the specified axis.For an harmonic signal,the fundamental frequency is the frequency so thats its integer multiple best explain the content of the signal spectrum.",
             "free parameters": "",
             "function": "fundamental_frequency",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -28,11 +28,11 @@
             "use": "yes"
         },
         "Linear regression": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the linear regression of a data set.",
             "free parameters": "",
             "function": "linear_regression",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -40,11 +40,11 @@
             "use": "yes"
         },
         "Max power spectrum": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Compute power spectrum density along the specified axes and return the maximum value.",
             "free parameters": "",
             "function": "max_power_spectrum",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -53,11 +53,11 @@
             "use": "yes"
         },
         "Maximum frequency": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Compute the one-dimensional discrete Fourier Transform and with cumsum function find 95% of max frequency.",
             "free parameters": "",
             "function": "max_frequency",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -66,11 +66,11 @@
             "use": "yes"
         },
         "Median frequency": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Compute the one-dimensional discrete Fourier Transform and with cumsum function find 50% of max frequency.",
             "free parameters": "",
             "function": "median_frequency",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -79,11 +79,11 @@
             "use": "yes"
         },
         "Spectral centroid": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the spectral centroid of a data set.",
             "free parameters": "",
             "function": "spectral_centroid",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -92,11 +92,11 @@
             "use": "yes"
         },
         "Spectral decrease": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the spectral decrease of a data set.",
             "free parameters": "",
             "function": "spectral_decrease",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -105,11 +105,11 @@
             "use": "yes"
         },
         "Spectral kurtosis": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the spectral kurtosis of a data set.",
             "free parameters": "",
             "function": "spectral_kurtosis",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -118,11 +118,11 @@
             "use": "yes"
         },
         "Spectral maximum peaks": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Returns the number of maximum peaks of a data set.",
             "free parameters": "",
             "function": "spectral_maxpeaks",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -131,11 +131,11 @@
             "use": "yes"
         },
         "Spectral roll-off": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the spectral roll-off of a dataset.",
             "free parameters": "",
             "function": "spectral_roll_off",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -144,11 +144,11 @@
             "use": "yes"
         },
         "Spectral roll-on": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the spectral roll-on of a dataset.",
             "free parameters": "",
             "function": "spectral_roll_on",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -157,11 +157,11 @@
             "use": "yes"
         },
         "Spectral skewness": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the spectral skewness of a data set.",
             "free parameters": "",
             "function": "spectral_skewness",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -170,11 +170,11 @@
             "use": "yes"
         },
         "Spectral slope": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the spectral slope of a data set.",
             "free parameters": "",
             "function": "spectral_slope",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -183,11 +183,11 @@
             "use": "yes"
         },
         "Spectral spread": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the spectral spread of a data set.",
             "free parameters": "",
             "function": "spectral_spread",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -196,11 +196,11 @@
             "use": "yes"
         },
         "Spectral variation": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the spectral variation of a data set.",
             "free parameters": "",
             "function": "spect_variation",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -209,11 +209,11 @@
             "use": "yes"
         },
         "Total energy": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the total energy of a data set.",
             "free parameters": "",
             "function": "total_energy",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -236,7 +236,7 @@
                 ]
             },
             "function": "hist",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 3,
             "parameters": "",
@@ -249,7 +249,7 @@
             "description": "Computes the interquartile range for the provided sequence of values, a more robust estimation than the variance.",
             "free parameters": "",
             "function": "calc_iqr",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -297,11 +297,11 @@
             "use": "yes"
         },
         "Mean absolute deviation": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the mean absolute deviation for the provided sequence of values, a more robust estimation than the variance.",
             "free parameters": "",
             "function": "calc_meanad",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -310,7 +310,7 @@
             "use": "yes"
         },
         "Median": {
-            "Complexity": "Unknown",
+            "Complexity": "Log",
             "description": "Computes the median along the specified axis.",
             "free parameters": "",
             "function": "median",
@@ -323,11 +323,11 @@
             "use": "yes"
         },
         "Median absolute deviation": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the median absolute deviation for the provided sequence of values, a more robust estimation than the variance.",
             "free parameters": "",
             "function": "calc_medad",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -353,7 +353,7 @@
             "description": "The square root of the arithmetic mean (average) of the squares of the original values.",
             "free parameters": "",
             "function": "rms",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -362,7 +362,7 @@
             "use": "yes"
         },
         "Skewness": {
-            "Complexity": "Unknown",
+            "Complexity": "Log",
             "description": "Computes the skewness of a data set.",
             "free parameters": "",
             "function": "skew",
@@ -403,11 +403,11 @@
     },
     "Temporal": {
         "Autocorrelation": {
-            "Complexity": "Unknown",
+            "Complexity": "Constant",
             "description": "Cross correlation of 1dimensional sequence.",
             "free parameters": "",
             "function": "autocorr",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -420,7 +420,7 @@
             "description": "Computes the centroid of a data set.",
             "free parameters": "",
             "function": "centroid",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "FS",
@@ -429,11 +429,11 @@
             "use": "yes"
         },
         "Maximum peaks": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Returns the number of maximum peaks of a data set.",
             "free parameters": "",
             "function": "maxpeaks",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -442,11 +442,11 @@
             "use": "yes"
         },
         "Mean absolute diff": {
-            "Complexity": "Unknown",
+            "Complexity": "Log",
             "description": "Computes the mean of the absolute differences between two consequent values.",
             "free parameters": "",
             "function": "calc_meanadiff",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -455,11 +455,11 @@
             "use": "yes"
         },
         "Mean diff": {
-            "Complexity": "Unknown",
+            "Complexity": "Constant",
             "description": "Computes the mean of the differences between two consequent values.",
             "free parameters": "",
             "function": "calc_meandiff",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -468,11 +468,11 @@
             "use": "yes"
         },
         "Median absolute diff": {
-            "Complexity": "Unknown",
+            "Complexity": "Log",
             "description": "Computes the median of the absolute differences between two consequent values.",
             "free parameters": "",
             "function": "calc_medadiff",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -481,11 +481,11 @@
             "use": "yes"
         },
         "Median diff": {
-            "Complexity": "Unknown",
+            "Complexity": "Log",
             "description": "Computes the median of the differences between two consequent values.",
             "free parameters": "",
             "function": "calc_meddiff",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -494,11 +494,11 @@
             "use": "yes"
         },
         "Minimum peaks": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Returns the number of minimum peaks of a data set.",
             "free parameters": "",
             "function": "minpeaks",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -507,11 +507,11 @@
             "use": "yes"
         },
         "Signal distance": {
-            "Complexity": "Unknown",
+            "Complexity": "Linear",
             "description": "Computes the length of the signal.",
             "free parameters": "",
             "function": "distance",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -520,11 +520,11 @@
             "use": "yes"
         },
         "Sum absolute diff": {
-            "Complexity": "Unknown",
+            "Complexity": "Log",
             "description": "Computes the sum of the absolute differences between two consequent values.",
             "free parameters": "",
             "function": "calc_sadiff",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
@@ -537,7 +537,7 @@
             "description": "The zero-crossing rate is a measure of the number of time the signal value cross the zero axe.",
             "free parameters": "",
             "function": "zero_cross",
-            "imports": "from TSFEL import *",
+            "imports": "from tsfel import *",
             "metric": "euclidean",
             "number of features": 1,
             "parameters": "",
